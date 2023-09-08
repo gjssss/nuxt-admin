@@ -152,7 +152,7 @@ function CollapseHandle(value?: boolean) {
 .el-menu-item {
   position: relative;
 
-  &::after{
+  &::after {
     content: '';
     position: absolute;
     left: 0;
@@ -160,16 +160,17 @@ function CollapseHandle(value?: boolean) {
     height: 100%;
     background-color: var(--transparent);
   }
-  &.is-active{
+
+  &.is-active {
     background-color: var(--el-menu-active-bg-color);
 
-    &::after{
+    &::after {
       background-color: var(--main-primary);
     }
   }
 }
 
-.el-menu--collapse .el-sub-menu.is-active{
+.el-menu--collapse .el-sub-menu.is-active {
   background-color: var(--el-menu-active-bg-color);
 }
 </style>

@@ -18,6 +18,7 @@ export const useSystemStore = defineStore('system', {
     webTitle: 'Nuxt Admin',
     collapse: false,
     footer: '2023 © Nuxt-Admin By GJSSSS.',
+    isClient: false,
   }),
 })
 

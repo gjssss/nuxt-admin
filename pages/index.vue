@@ -5,7 +5,7 @@
 <template>
   <div class="card flex-center h-full flex-col">
     <div class="logo relative" />
-    <div class="text-38px font-bold c-#006333">
+    <div class="whitespace-nowrap text-38px font-bold c-#006333">
       Welcom Nuxt Admin
     </div>
   </div>
