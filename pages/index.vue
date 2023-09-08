@@ -1,5 +1,6 @@
 <script setup lang="tsx">
 import { storeToRefs } from 'pinia'
+import type { menuOptionItem } from '~/types'
 
 const systemStore = useSystemStore()
 onMounted(() => {
@@ -9,63 +10,6 @@ onMounted(() => {
 })
 const { collapse } = storeToRefs(systemStore)
 const _collapse = ref(collapse.value)
-
-interface menuOptionItem {
-  title: string
-  key: string | number
-  icon?: string
-  children?: menuOptionItem[]
-}
-const moption: menuOptionItem[] = [
-  {
-    title: 'test 1',
-    key: 'index',
-    icon: 'i-carbon-home',
-    children: [
-      {
-        title: 'index',
-        key: 'index',
-      },
-      {
-        title: 'user',
-        key: 'user',
-        children: [
-          {
-            title: 'index',
-            key: 'index',
-          },
-          {
-            title: 'user',
-            key: 'user',
-          },
-          {
-            title: 'test 1-3',
-            key: '1-3',
-          },
-        ],
-      },
-      {
-        title: 'test 1-3',
-        key: '1-3',
-      },
-    ],
-  },
-  {
-    title: 'test 2',
-    key: '2',
-    icon: 'i-carbon-home',
-  },
-  {
-    title: 'test 3',
-    key: '3',
-    icon: 'i-carbon-home',
-  },
-  {
-    title: 'test 4',
-    key: '4',
-    icon: 'i-carbon-home',
-  },
-]
 
 /**
  * 用于渲染菜单项
@@ -172,14 +116,14 @@ function CollapseHandle(value?: boolean) {
 <template>
   <div class="h-full w-full flex">
     <div class="flex-0 border-style h-full">
-      <el-menu default-active="2" :style="menuStyle" :collapse="collapse" class="h-full w-210px" router>
+      <el-menu :default-active="$route.path" :style="menuStyle" :collapse="collapse" class="h-full w-210px" router>
         <div class="flex-center h-55px" :class="_collapse ? 'w-63px' : 'w-full'">
           <img class="h-30px" src="/nuxt.svg" alt="Nuxt Logo" :class="_collapse ? '' : 'mr-10px'">
           <div v-show="!_collapse" class="text-22px font-bold">
             {{ systemStore.webTitle }}
           </div>
         </div>
-        <sidebarMenu :option="moption" />
+        <sidebarMenu :option="systemStore.menuOption" />
       </el-menu>
     </div>
     <div class="flex flex-1 flex-col">

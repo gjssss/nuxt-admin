@@ -1,4 +1,5 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
+import type { menuOptionItem } from '~/types'
 
 export const useSystemStore = defineStore('system', {
   state: () => ({
@@ -19,6 +20,23 @@ export const useSystemStore = defineStore('system', {
     collapse: false,
     footer: '2023 © Nuxt-Admin By GJSSSS.',
     isClient: false,
+    menuOption: [
+      {
+        title: '首页',
+        key: 'index',
+        icon: 'i-carbon-home',
+      },
+      {
+        title: '用户',
+        key: 'user',
+        icon: 'i-carbon-home',
+      },
+      {
+        title: '测试',
+        key: 'other',
+        icon: 'i-carbon-home',
+      },
+    ] as menuOptionItem[],
   }),
 })
 
