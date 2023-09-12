@@ -4,3 +4,8 @@ export interface menuOptionItem {
   icon?: string
   children?: menuOptionItem[]
 }
+
+export interface pathInfoItem extends menuOptionItem {
+  path: string
+  children?: pathInfoItem[]
+}
