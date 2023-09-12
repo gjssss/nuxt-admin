@@ -6,7 +6,6 @@ import type { pathInfoItem } from '~/types'
 const systemStore = useSystemStore()
 const tabsStore = useTabsStore()
 onMounted(() => {
-  window.sys = systemStore
   watchEffect(() => {
     document.documentElement.style.setProperty('--el-menu-active-bg-color', changeAlpha(systemStore.color['main-primary'], 0.1))
   })
