@@ -7,9 +7,7 @@ export interface TabsItem {
 }
 export const useTabsStore = defineStore('tabs', {
   state: () => ({
-    list: [
-
-    ] as TabsItem[],
+    list: [] as TabsItem[],
   }),
   actions: {
     /**
@@ -53,12 +51,37 @@ export const useTabsStore = defineStore('tabs', {
         const route = useRoute()
         if (route.path === '/')
           this.pushTabs('/')
-
         else
           router.push('/')
       }
       else {
         router.push(this.list[index].path)
+      }
+    },
+    /**
+     * 关闭所有
+     */
+    closeAll() {
+      this.list.splice(0)
+      const router = useRouter()
+      const route = useRoute()
+
+      if (route.path === '/')
+        this.pushTabs('/')
+      else
+        router.push('/')
+    },
+    /**
+     * 关闭其他
+     */
+    closeOther(path: string) {
+      const index = this.list.findIndex(item => item.path === path)
+      if (index >= 0) {
+        const item = this.list[index]
+        this.list.splice(0)
+        this.list.push(item)
+        const router = useRouter()
+        router.push(item.path)
       }
     },
   },

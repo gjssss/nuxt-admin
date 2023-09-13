@@ -81,7 +81,7 @@ function CollapseHandle(value?: boolean) {
 <template>
   <div class="h-full w-full flex">
     <div class="border-style h-full flex-shrink-0">
-      <el-menu :default-active="$route.path" :collapse="collapse" class="page-menu h-full w-210px flex flex-col" router>
+      <el-menu router :collapse="collapse" :default-active="$route.path" class="page-menu h-full w-210px flex flex-col">
         <div class="flex-center h-55px flex-shrink-0" :class="_collapse ? 'w-63px' : 'w-full'">
           <img class="h-30px" src="/nuxt.svg" alt="Nuxt Logo" :class="_collapse ? '' : 'mr-10px'">
           <div v-show="!_collapse" class="text-22px font-bold">
@@ -95,23 +95,53 @@ function CollapseHandle(value?: boolean) {
     </div>
     <div class="min-w-0 flex flex-1 flex-col">
       <div class="h-100px flex-shrink-0">
-        <div class="border-style box-border h-55px flex items-center border-b">
-          <CommonBackIcon size="20px" class="ml-10px rotate-180" :select="!collapse" @click="CollapseHandle()" />
-          <el-breadcrumb separator="/" class="page-breadcrumb ml-20px">
-            <el-breadcrumb-item :to="{ path: '/' }">
-              {{ systemStore.findPageInfoFromPath('/')?.title }}
-            </el-breadcrumb-item>
-            <el-breadcrumb-item v-for="item in systemStore.pagePathArray" :key="item">
-              {{ item }}
-            </el-breadcrumb-item>
-          </el-breadcrumb>
+        <div class="border-style box-border h-55px flex items-center justify-between border-b">
+          <div class="flex items-center">
+            <CommonBackIcon size="20px" class="ml-10px rotate-180" :select="!collapse" @click="CollapseHandle()" />
+            <el-breadcrumb separator="/" class="page-breadcrumb ml-20px">
+              <el-breadcrumb-item :to="{ path: '/' }">
+                {{ systemStore.findPageInfoFromPath('/')?.title }}
+              </el-breadcrumb-item>
+              <el-breadcrumb-item v-for="item in systemStore.pagePathArray" :key="item">
+                {{ item }}
+              </el-breadcrumb-item>
+            </el-breadcrumb>
+          </div>
+          <div class="flex items-center">
+            <ElButton :bg="false" text size="large">
+              <i class="i-carbon-settings text-18px" />
+            </ElButton>
+          </div>
         </div>
-        <div class="border-style box-border h-45px border-b">
-          <el-tabs :model-value="tabsStore.activeTab" type="card" closable class="page-tabs" @tab-click="tabsStore.routeTab" @tab-remove="tabsStore.closeTab">
+        <div class="border-style box-border h-45px flex justify-between border-b">
+          <el-tabs
+            closable type="card" class="page-tabs" :model-value="tabsStore.activeTab"
+            @tab-click="tabsStore.routeTab" @tab-remove="tabsStore.closeTab"
+          >
             <ElScrollbar>
               <el-tab-pane v-for="item in tabsStore.tabs" :key="item.key" :label="item.name" :name="item.key" />
             </ElScrollbar>
           </el-tabs>
+
+          <el-dropdown trigger="click">
+            <ElButton class="tabs-control border-style" tag="div" text>
+              <i class="i-carbon-arrow-down" />
+            </ElButton>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item>刷新</el-dropdown-item>
+                <el-dropdown-item divided @click="tabsStore.closeTab($route.path)">
+                  关闭当前
+                </el-dropdown-item>
+                <el-dropdown-item @click="tabsStore.closeAll">
+                  关闭所有
+                </el-dropdown-item>
+                <el-dropdown-item @click="tabsStore.closeOther($route.path)">
+                  关闭其他
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
         </div>
       </div>
       <main class="box-border flex-1 bg-#eee p-10px">
@@ -193,5 +223,15 @@ function CollapseHandle(value?: boolean) {
 
 .page-breadcrumb {
   --el-color-primary: var(--el-color-black);
+}
+
+.tabs-control {
+  height: 100%;
+  font-size: 18px;
+
+  &.tabs-control {
+    border-left: 1px solid var(--main-flat);
+    border-radius: 0;
+  }
 }
 </style>
