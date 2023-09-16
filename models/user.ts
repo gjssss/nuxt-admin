@@ -3,7 +3,8 @@ import { DataTypes, Model } from 'sequelize'
 
 class User extends Model {
   declare id: number
-  declare name: string
+  declare userName: string
+  declare password: string
 }
 
 const Option: ModelAttributes = {
@@ -12,7 +13,10 @@ const Option: ModelAttributes = {
     autoIncrement: true,
     primaryKey: true,
   },
-  name: {
+  userName: {
+    type: DataTypes.STRING,
+  },
+  password: {
     type: DataTypes.STRING,
   },
 }

@@ -40,6 +40,9 @@ export default defineNuxtConfig({
       routes: ['/'],
       ignore: ['/hi'],
     },
+    experimental: {
+      asyncContext: true,
+    },
   },
 
   app: {

@@ -8,11 +8,28 @@ onBeforeMount(() => {
     return navigateTo('/')
   }
 })
+const formData = ref({
+  userName: '',
+  password: '',
+})
+async function submit() {
+  const data = await $fetch('/api/login', {
+    body: formData.value,
+    method: 'POST',
+  })
+  console.log(data)
+}
 </script>
 
 <template>
   <div>
-    123
+    <div class="ma w-300px">
+      <ElInput v-model="formData.userName" />
+      <ElInput v-model="formData.password" type="password" />
+      <ElButton @click="submit">
+        Submit
+      </ElButton>
+    </div>
   </div>
 </template>
 
