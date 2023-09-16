@@ -12,7 +12,7 @@ onMounted(() => {
 })
 const { collapse } = storeToRefs(systemStore)
 const _collapse = ref(collapse.value)
-
+const settingFlag = ref(false)
 /**
  * 用于渲染菜单项
  * @param props 菜单项
@@ -108,7 +108,7 @@ function CollapseHandle(value?: boolean) {
             </el-breadcrumb>
           </div>
           <div class="flex items-center">
-            <ElButton :bg="false" text size="large">
+            <ElButton :bg="false" text size="large" @click="settingFlag = !settingFlag">
               <i class="i-carbon-settings text-18px" />
             </ElButton>
           </div>
@@ -153,6 +153,7 @@ function CollapseHandle(value?: boolean) {
         </ElLink>
       </footer>
     </div>
+    <SystemSettingDrawer v-model="settingFlag" />
   </div>
 </template>
 
