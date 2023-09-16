@@ -6,13 +6,15 @@ export default defineNuxtRouteMiddleware((to, from) => {
         query: {
           redirect: from.fullPath,
         },
-      })
+      }, { replace: true })
     }
   }
   else if (process.client) {
-    const tabsStore = useTabsStore()
+    if (to.path !== '/login') {
+      const tabsStore = useTabsStore()
 
-    if (!tabsStore.hasTab(to.path))
-      tabsStore.pushTabs(to.path)
+      if (!tabsStore.hasTab(to.path))
+        tabsStore.pushTabs(to.path)
+    }
   }
 })
