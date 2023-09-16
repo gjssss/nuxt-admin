@@ -2,7 +2,7 @@
   "private": true,
   "packageManager": "pnpm@8.7.5",
   "scripts": {
-    "build": "nuxi build",
+    "build": "nuxi build --dotenv .env.production.local",
     "dev": "nuxi dev",
     "dev:pwa": "VITE_PLUGIN_PWA=true nuxi dev",
     "start": "node .output/server/index.mjs",
@@ -13,6 +13,7 @@
     "start:generate": "npx serve .output/public"
   },
   "dependencies": {
+    "jsonwebtoken": "^9.0.2",
     "sass": "^1.66.1",
     "sequelize": "^6.33.0"
   },

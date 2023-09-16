@@ -63,4 +63,20 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true,
   },
+
+  runtimeConfig: {
+    tokenExpired: '3h',
+    secret: '',
+  },
+  $development: {
+    runtimeConfig: {
+      tokenExpired: '',
+      secret: 'HelloNuxtAdmin',
+    },
+  },
+  $production: {
+    runtimeConfig: {
+      secret: process.env.NUXT_SECRET,
+    },
+  },
 })
