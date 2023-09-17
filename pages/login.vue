@@ -17,6 +17,7 @@ async function submit() {
     body: formData.value,
     method: 'POST',
   })
+  // eslint-disable-next-line no-console
   console.log(data)
 }
 </script>
@@ -24,11 +25,8 @@ async function submit() {
 <template>
   <div>
     <div class="ma w-300px">
-      <ElInput v-model="formData.userName" />
-      <ElInput v-model="formData.password" type="password" />
-      <ElButton @click="submit">
-        Submit
-      </ElButton>
+      {{ formData }}
+      <AdminLogin v-model:user-name="formData.userName" v-model:password="formData.password" @login="submit" />
     </div>
   </div>
 </template>

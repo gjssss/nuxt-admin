@@ -1,6 +1,5 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import type { menuOptionItem, pathInfoItem } from '~/types'
-import { mergePath } from '~/utils/path'
 
 export const useSystemStore = defineStore('system', () => {
   const color = ref({

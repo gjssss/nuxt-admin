@@ -124,7 +124,7 @@ function CollapseHandle(value?: boolean) {
           </el-tabs>
 
           <el-dropdown trigger="click">
-            <ElButton class="tabs-control border-style" tag="div" text>
+            <ElButton class="border-style tabs-control" tag="div" text>
               <i class="i-carbon-arrow-down" />
             </ElButton>
             <template #dropdown>

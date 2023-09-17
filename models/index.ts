@@ -14,7 +14,7 @@ type ModelClass = {
   new (): Model
 } & typeof Model
 
-export interface modelInfo {
+interface modelInfo {
   model: ModelClass
   Option: ModelAttributes
 }
