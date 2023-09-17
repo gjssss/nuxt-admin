@@ -1,5 +1,9 @@
 <script setup lang="ts">
 onBeforeMount(() => {
+  testAuth()
+})
+
+function testAuth() {
   const auth = localStorage.getItem('Authorization')
   if (auth) {
     const route = useRoute()
@@ -7,25 +11,30 @@ onBeforeMount(() => {
       return navigateTo(route.query.redirect)
     return navigateTo('/')
   }
-})
+}
+
 const formData = ref({
   userName: '',
   password: '',
 })
 async function submit() {
-  const data = await $fetch('/api/login', {
-    body: formData.value,
-    method: 'POST',
-  })
-  // eslint-disable-next-line no-console
-  console.log(data)
+  try {
+    const { data } = await $fetch('/api/login', {
+      body: formData.value,
+      method: 'POST',
+    })
+    localStorage.setItem('Authorization', data!.token)
+    testAuth()
+  }
+  catch (e) {
+    // console.log(e)
+  }
 }
 </script>
 
 <template>
   <div>
     <div class="ma w-300px">
-      {{ formData }}
       <AdminLogin v-model:user-name="formData.userName" v-model:password="formData.password" @login="submit" />
     </div>
   </div>

@@ -1,9 +1,8 @@
 <script setup lang="ts">
 const value = defineModel<boolean>()
 async function test() {
-  const data = await $fetch('/api/test')
-  // eslint-disable-next-line no-console
-  console.log(data)
+  // const data = await $fetch('/api/test')
+  // console.log(data)
 }
 </script>
 
