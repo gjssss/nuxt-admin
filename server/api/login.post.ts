@@ -14,10 +14,18 @@ export default defineEventHandler(async (event) => {
         password: sha256(body.password),
       },
     })
-    token = jwt.sign({
-      userName: user?.userName,
-      password: user?.password,
-    }, runtimeConfig.secret, runtimeConfig.tokenExpired ? { expiresIn: runtimeConfig.tokenExpired } : { })
+
+    if (user) {
+      token = jwt.sign({
+        userName: user?.userName,
+        password: user?.password,
+      }, runtimeConfig.secret, runtimeConfig.tokenExpired ? { expiresIn: runtimeConfig.tokenExpired } : { })
+    }
+    else {
+      return {
+        msg: '用户不存在',
+      }
+    }
   }
   catch (e) {
     return {
