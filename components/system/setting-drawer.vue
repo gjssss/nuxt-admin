@@ -1,8 +1,13 @@
 <script setup lang="ts">
 const value = defineModel<boolean>()
 async function test() {
-  // const data = await $fetch('/api/test')
-  // console.log(data)
+  try {
+    await useReq('/api/whoami')
+  }
+  catch (e) {
+    localStorage.removeItem('Authorization')
+    testAuth(localStorage)
+  }
 }
 </script>
 

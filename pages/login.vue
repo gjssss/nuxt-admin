@@ -1,17 +1,7 @@
 <script setup lang="ts">
 onBeforeMount(() => {
-  testAuth()
+  testAuth(localStorage)
 })
-
-function testAuth() {
-  const auth = localStorage.getItem('Authorization')
-  if (auth) {
-    const route = useRoute()
-    if (route.query.redirect && typeof route.query.redirect === 'string' && !route.query.redirect.startsWith('/login'))
-      return navigateTo(route.query.redirect)
-    return navigateTo('/')
-  }
-}
 
 const formData = ref({
   userName: '',
@@ -19,12 +9,12 @@ const formData = ref({
 })
 async function submit() {
   try {
-    const { data } = await $fetch('/api/login', {
+    const { data } = await useReq('/api/login', {
       body: formData.value,
-      method: 'POST',
+      method: 'post',
     })
     localStorage.setItem('Authorization', data!.token)
-    testAuth()
+    testAuth(localStorage)
   }
   catch (e) {
     // console.log(e)
