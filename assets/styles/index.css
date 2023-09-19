@@ -26,3 +26,17 @@ code{
     background-color: #f6f6f7;
     transition: color .5s,background-color .5s
 }
+
+/* nprogress */
+#nprogress .bar {
+  background: var(--main-deep) !important;
+}
+#nprogress .spinner-icon {
+  border-top-color: var(--main-deep) !important;
+  border-left-color: var(--main-deep) !important;
+}
+#nprogress .peg {
+  box-shadow:
+    0 0 10px var(--main-deep),
+    0 0 5px var(--main-deep) !important;
+}
