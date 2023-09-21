@@ -9,7 +9,7 @@ const formData = ref({
 })
 async function submit() {
   try {
-    const { data } = await useReq('/api/login', {
+    const { data } = await request('/api/login', {
       body: formData.value,
       method: 'post',
     })

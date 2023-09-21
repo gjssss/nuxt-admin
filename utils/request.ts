@@ -1,7 +1,7 @@
-import { merge } from 'lodash-es'
+import { defu } from 'defu'
 
 // TODO: 无法显示api返回类型
-export function useReq(...args: Parameters<typeof $fetch>): Promise<{
+function _request(...args: Parameters<typeof $fetch>): Promise<{
   data: any
   msg: string
 }> {
@@ -16,12 +16,19 @@ export function useReq(...args: Parameters<typeof $fetch>): Promise<{
       'Cache-Control': 'no-cache',
     }
 
-    if (localStorage.getItem('Authorization'))
+    if (localStorage.getItem('Authorization')) {
       headers.Authorization = localStorage.getItem('Authorization')!
+    }
+    else {
+      navigateTo('/login', {
+        replace: true,
+      })
+    }
 
-    const option: typeof opts = merge({
+    const option: typeof opts = defu({
       headers,
     }, opts)
     return $fetch(request, option)
   }
 }
+export const request = _request as typeof $fetch

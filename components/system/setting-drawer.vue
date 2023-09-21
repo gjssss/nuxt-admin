@@ -2,11 +2,20 @@
 const value = defineModel<boolean>()
 async function test() {
   try {
-    await useReq('/api/whoami')
+    await request('/api/whoami')
   }
   catch (e) {
     localStorage.removeItem('Authorization')
     testAuth(localStorage)
+  }
+}
+
+async function reset() {
+  try {
+    await request('/api/setup')
+  }
+  catch (error) {
+    console.log(error)
   }
 }
 </script>
@@ -19,6 +28,9 @@ async function test() {
       </el-divider>
       <el-button @click="test">
         测试
+      </el-button>
+      <el-button @click="reset">
+        重置
       </el-button>
     </div>
   </ElDrawer>

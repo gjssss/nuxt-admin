@@ -1,6 +1,7 @@
 import type { Model, ModelAttributes } from 'sequelize'
 import { Sequelize } from 'sequelize'
 import user from './user'
+import test from './test'
 
 export const connect = new Sequelize('test', 'root', '123123123', {
   host: 'localhost',
@@ -24,5 +25,7 @@ function setupModel(conn: Sequelize, info: modelInfo) {
 }
 
 setupModel(connect, user)
+setupModel(connect, test)
 
 export const User = user.model
+export const Test = test.model
