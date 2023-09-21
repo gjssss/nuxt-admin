@@ -16,18 +16,15 @@ function _request(...args: Parameters<typeof $fetch>): Promise<{
       'Cache-Control': 'no-cache',
     }
 
-    if (localStorage.getItem('Authorization')) {
+    if (localStorage.getItem('Authorization'))
       headers.Authorization = localStorage.getItem('Authorization')!
-    }
-    else {
-      navigateTo('/login', {
-        replace: true,
-      })
-    }
+
+    else
+      testAuth(localStorage)
 
     const option: typeof opts = defu({
       headers,
-    }, opts)
+    } as typeof opts, opts)
     return $fetch(request, option)
   }
 }

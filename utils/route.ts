@@ -17,11 +17,13 @@ export function testAuth(Storage: Storage) {
     }
   }
   else {
-    return navigateTo({
-      path: '/login',
-      query: {
-        redirect: route.fullPath,
-      },
-    }, { replace: true })
+    if (route.path !== '/login') {
+      return navigateTo({
+        path: '/login',
+        query: {
+          redirect: route.fullPath,
+        },
+      }, { replace: true })
+    }
   }
 }

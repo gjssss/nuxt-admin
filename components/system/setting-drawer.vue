@@ -1,22 +1,11 @@
 <script setup lang="ts">
 const value = defineModel<boolean>()
 async function test() {
-  try {
-    await request('/api/whoami')
-  }
-  catch (e) {
-    localStorage.removeItem('Authorization')
-    testAuth(localStorage)
-  }
+  await request('/api/whoami')
 }
 
 async function reset() {
-  try {
-    await request('/api/setup')
-  }
-  catch (error) {
-    console.log(error)
-  }
+  await request('/api/setup')
 }
 </script>
 
