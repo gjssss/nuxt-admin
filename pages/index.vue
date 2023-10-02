@@ -2,6 +2,7 @@
 import { storeToRefs } from 'pinia'
 import { ElIcon, ElMenuItem, ElSubMenu } from 'element-plus'
 import type { pathInfoItem } from '~/types'
+import { Icon } from '#components'
 
 const systemStore = useSystemStore()
 const tabsStore = useTabsStore()
@@ -23,7 +24,7 @@ function sidebarMenu(props: { option: pathInfoItem[] }) {
       ? <ElSubMenu index={item.path} popperClass='page-menu'>
         {{
           title: () => <>
-            <ElIcon><div class={item.icon ?? 'i-carbon-home'} /></ElIcon>
+            <ElIcon><Icon name={item.icon ?? 'i-carbon-home'} /></ElIcon>
             <span>{!collapse.value ? item.title : ''}</span>
           </>,
           default: () => item.children?.map(_map),
@@ -31,7 +32,7 @@ function sidebarMenu(props: { option: pathInfoItem[] }) {
       </ElSubMenu>
       : <ElMenuItem index={item.path}>
         {{
-          default: () => <ElIcon><div class={item.icon ?? 'i-carbon-home'} /></ElIcon>,
+          default: () => <ElIcon><Icon name={item.icon ?? 'i-carbon-home'} /></ElIcon>,
           title: () => <>{!collapse.value || item.key ? item.title : ''}</>,
         }}
       </ElMenuItem>

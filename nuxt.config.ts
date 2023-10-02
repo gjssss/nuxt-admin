@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@vite-pwa/nuxt',
     '@element-plus/nuxt',
+    'nuxt-icon',
   ],
 
   experimental: {
