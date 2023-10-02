@@ -1,6 +1,5 @@
 import { defu } from 'defu'
 
-// TODO: 无法显示api返回类型
 function _request(...args: Parameters<typeof $fetch>): Promise<{
   data: any
   msg: string
