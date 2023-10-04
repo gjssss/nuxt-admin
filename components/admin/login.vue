@@ -19,22 +19,22 @@ const { userName, password } = useVModels(props, emits)
     <p>Login</p>
     <form autocomplete="on">
       <div class="user-box">
-        <input v-model="userName" required name="userName" type="text" autocomplete="on">
+        <input v-model="userName" required name="userName" type="text" autocomplete="on" :class="userName ? 'is-active' : ''">
         <label>用户名</label>
       </div>
       <div class="user-box">
-        <input v-model="password" required name="password" type="password" autocomplete="on">
+        <input v-model="password" required name="password" type="password" autocomplete="on" :class="password ? 'is-active' : ''" @keyup.enter="$emit('login')">
         <label>密码</label>
       </div>
       <div class="flex justify-around">
-        <a @click="$emit('login')">
+        <a class="cursor-pointer" @click="$emit('login')">
           <span />
           <span />
           <span />
           <span />
           登录
         </a>
-        <a v-if="register" @click="$emit('regist')">
+        <a v-if="register" class="cursor-pointer" @click="$emit('regist')">
           <span />
           <span />
           <span />
@@ -48,7 +48,7 @@ const { userName, password } = useVModels(props, emits)
 
 <style>
 .login-box {
- --color: 0, 150, 136;
+  --color: 0, 150, 136;
 
   position: absolute;
   top: 50%;
@@ -57,9 +57,9 @@ const { userName, password } = useVModels(props, emits)
   padding: 40px;
   margin: 20px auto;
   transform: translate(-50%, -55%);
-  background: rgba(var(--color),.9);
+  background: rgba(var(--color), .9);
   box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(var(--color),.6);
+  box-shadow: 0 15px 25px rgba(var(--color), .6);
   border-radius: 10px;
 }
 
@@ -89,6 +89,18 @@ const { userName, password } = useVModels(props, emits)
   background: transparent;
 }
 
+.login-box .user-box input:autofill {
+  background: #fff;
+}
+
+.login-box .user-box input:-webkit-autofill,
+.login-box .user-box input:-webkit-autofill:hover,
+.login-box .user-box input:-webkit-autofill:focus,
+.login-box .user-box input:-webkit-autofill:active {
+  transition: background-color 5000s;
+  -webkit-text-fill-color: #fff !important;
+}
+
 .login-box .user-box label {
   position: absolute;
   top: 0;
@@ -100,8 +112,10 @@ const { userName, password } = useVModels(props, emits)
   transition: .5s;
 }
 
-.login-box .user-box input:focus ~ label,
-.login-box .user-box input:valid ~ label {
+.login-box .user-box input:focus~label,
+.login-box .user-box input:valid~label,
+.login-box .user-box input.is-active~label
+{
   top: -20px;
   left: 0;
   color: #fff;
@@ -148,7 +162,8 @@ const { userName, password } = useVModels(props, emits)
     left: -100%;
   }
 
-  50%,100% {
+  50%,
+  100% {
     left: 100%;
   }
 }
@@ -168,7 +183,8 @@ const { userName, password } = useVModels(props, emits)
     top: -100%;
   }
 
-  50%,100% {
+  50%,
+  100% {
     top: 100%;
   }
 }
@@ -188,7 +204,8 @@ const { userName, password } = useVModels(props, emits)
     right: -100%;
   }
 
-  50%,100% {
+  50%,
+  100% {
     right: 100%;
   }
 }
@@ -208,7 +225,8 @@ const { userName, password } = useVModels(props, emits)
     bottom: -100%;
   }
 
-  50%,100% {
+  50%,
+  100% {
     bottom: 100%;
   }
 }

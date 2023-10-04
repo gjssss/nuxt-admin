@@ -25,7 +25,7 @@ withDefaults(defineProps<{
 <style scoped>
 .buttons__burger {
   --size: 16px;
-  --clr: #000;
+  --clr: var(--el-text-color-primary);
   width: var(--size);
   height: calc(0.7 * var(--size));
   cursor: pointer;

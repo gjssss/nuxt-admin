@@ -6,11 +6,6 @@ import { Icon } from '#components'
 
 const systemStore = useSystemStore()
 const tabsStore = useTabsStore()
-onMounted(() => {
-  watchEffect(() => {
-    document.documentElement.style.setProperty('--el-menu-active-bg-color', changeAlpha(systemStore.color['main-primary'], 0.1))
-  })
-})
 const { collapse } = storeToRefs(systemStore)
 const _collapse = ref(collapse.value)
 const settingFlag = ref(false)
@@ -145,10 +140,10 @@ function CollapseHandle(value?: boolean) {
           </el-dropdown>
         </div>
       </div>
-      <main class="box-border flex-1 bg-#eee p-10px">
+      <main class="box-border flex-1 bg-$main-bg-color p-10px">
         <NuxtPage keepalive />
       </main>
-      <footer class="h-30px bg-white text-center">
+      <footer class="h-30px bg-$main-bg-color text-center">
         <ElLink :underline="false" type="info">
           {{ systemStore.footer }}
         </ElLink>
@@ -160,13 +155,11 @@ function CollapseHandle(value?: boolean) {
 
 <style lang="scss">
 .page-menu {
-  --el-menu-active-color: var(--main-deep);
-
   .el-menu-item {
     position: relative;
 
     &.is-active {
-      background-color: var(--el-menu-active-bg-color);
+      background-color: var(--el-menu-hover-bg-color);
 
       &::after {
         content: '';
@@ -174,18 +167,23 @@ function CollapseHandle(value?: boolean) {
         left: 0;
         width: 5px;
         height: 100%;
-        background-color: var(--main-primary);
+        background-color: var(--el-color-primary);
       }
     }
   }
 
-  &.el-menu--collapse .el-sub-menu.is-active {
-    background-color: var(--el-menu-active-bg-color);
+  &.el-menu--collapse .el-sub-menu {
+    &.is-active {
+      background-color: var(--el-menu-hover-bg-color);
+    }
+
+    .el-sub-menu__icon-arrow {
+      display: none;
+    }
   }
 }
 
 .page-tabs {
-  --el-color-primary: var(--el-color-black);
 
   &,
   .el-tabs__nav-wrap,
@@ -193,7 +191,6 @@ function CollapseHandle(value?: boolean) {
   .el-tabs__nav-scroll,
   .el-tabs__nav,
   .el-tabs__item {
-
     height: 100%;
   }
 
@@ -211,20 +208,25 @@ function CollapseHandle(value?: boolean) {
   .el-tabs__item {
     position: relative;
 
-    &.is-active::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      height: 2px;
-      width: 100%;
-      background-color: var(--main-primary);
+    &:hover {
+      color: var(--el-text-color-primary)
+    }
+
+    &.is-active {
+      color: var(--el-text-color-primary);
+      background-color: var(--el-menu-hover-bg-color);
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 2px;
+        width: 100%;
+        background-color: var(--el-color-primary);
+      }
     }
   }
-}
-
-.page-breadcrumb {
-  --el-color-primary: var(--el-color-black);
 }
 
 .tabs-control {
@@ -232,7 +234,7 @@ function CollapseHandle(value?: boolean) {
   font-size: 18px;
 
   &.tabs-control {
-    border-left: 1px solid var(--main-flat);
+    border-left: 1px solid var(--un-default-border-color);
     border-radius: 0;
   }
 }

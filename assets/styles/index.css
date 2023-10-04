@@ -1,42 +1,59 @@
+:root.light.light {
+  --un-default-border-color: rgba(0, 0, 0, 0.2);
+  --main-bg-color: rgba(0, 0, 0, 0.1);
+
+  --el-color-primary: var(--light-color);
+  --el-menu-hover-bg-color: var(--light-color-bg);
+}
+
+:root.dark.dark {
+  --un-default-border-color: rgba(255, 255, 255, 0.2);
+  --main-bg-color: rgba(255, 255, 255, 0.1);
+
+  --el-color-primary: var(--dark-color);
+  --el-menu-hover-bg-color: var(--dark-color-bg);
+}
+
 .border-style {
-    border-color: var(--main-flat);
-    border-style: solid;
+  border-style: solid;
 }
 
 .flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .card {
-    box-sizing: border-box;
-    padding: 20px;
-    overflow-x: hidden;
-    background-color: var(--el-bg-color);
-    border: 1px solid var(--el-border-color-light);
-    border-radius: 6px;
-    box-shadow: 0 0 12px #0000000d;
+  box-sizing: border-box;
+  padding: 20px;
+  overflow-x: hidden;
+  background-color: var(--el-bg-color);
+  border: 1px solid var(--el-border-color-light);
+  border-radius: 6px;
+  box-shadow: 0 0 12px #0000000d;
 }
 
-code{
-    border-radius: 4px;
-    padding: 3px 6px;
-    color: #476582;
-    background-color: #f6f6f7;
-    transition: color .5s,background-color .5s
+code {
+  border-radius: 4px;
+  padding: 3px 6px;
+  color: var(--el-color-primary);
+  background-color: var(--main-bg-color);
+  transition: color .5s, background-color .5s
 }
 
 /* nprogress */
 #nprogress .bar {
-  background: var(--main-deep) !important;
+  background: var(--el-color-primary) !important;
 }
+
 #nprogress .spinner-icon {
-  border-top-color: var(--main-deep) !important;
-  border-left-color: var(--main-deep) !important;
+  border-top-color: var(--el-color-primary) !important;
+  border-left-color: var(--el-color-primary) !important;
 }
+
 #nprogress .peg {
   box-shadow:
-    0 0 10px var(--main-deep),
-    0 0 5px var(--main-deep) !important;
+    0 0 10px var(--el-color-primary),
+    0 0 5px var(--el-color-primary) !important;
 }

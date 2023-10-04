@@ -3,17 +3,8 @@ import type { menuOptionItem, pathInfoItem } from '~/types'
 
 export const useSystemStore = defineStore('system', () => {
   const color = ref({
-    'main-deep': '#342070',
-    'main-primary': '#5d3ebd',
-    'main-flat': '#e0deeb',
-    'main-contrast': '#f5cf39',
-    'main-soft': '#ffeb9b',
-    'sub-deep': '#1e1e1e',
-    'sub-primary': '#9b9b9b',
-    'sub-flat': '#f2f2f2',
-    'bas-positive': '#000000',
-    'bas-nagative': '#ffffff',
-    'transparent': 'transparent',
+    light: '#006333',
+    dark: '#00DC82',
   })
   const webTitle = ref('Nuxt Admin')
   const collapse = ref(false)

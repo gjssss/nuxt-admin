@@ -3,8 +3,10 @@ const systemStore = useSystemStore()
 
 onMounted(() => {
   watchEffect(() => {
-    for (const [key, value] of Object.entries(systemStore.color))
-      document.documentElement.style.setProperty(`--${key}`, value)
+    (['light', 'dark'] as ('light' | 'dark')[]).forEach((item) => {
+      document.documentElement.style.setProperty(`--${item}-color`, systemStore.color[item])
+      document.documentElement.style.setProperty(`--${item}-color-bg`, changeAlpha(systemStore.color[item], 0.1))
+    })
   })
   systemStore.isClient = true
 })
