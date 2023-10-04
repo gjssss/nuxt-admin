@@ -3,7 +3,7 @@ const route = useRoute()
 </script>
 
 <template>
-  <div class="full card">
+  <div class="card full">
     <code>{{ route.path }}</code> 路径不存在
   </div>
 </template>

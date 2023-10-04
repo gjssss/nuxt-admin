@@ -30,7 +30,7 @@ const option2 = defineTableOption([
 <template>
   <div class="card h-full w-full">
     <CommonTable :data="data.data" :options="option2">
-      <template #option="{ $index }">
+      <template #option>
         <el-button>确认</el-button>
         <el-button>取消</el-button>
       </template>

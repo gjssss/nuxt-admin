@@ -1,8 +1,8 @@
-import type { CreationOptional, InferAttributes, InferCreationAttributes, ModelAttributes } from 'sequelize'
+import type { InferAttributes, InferCreationAttributes, ModelAttributes } from 'sequelize'
 import { DataTypes, Model } from 'sequelize'
 
 class Test extends Model<InferAttributes<Test>, InferCreationAttributes<Test>> {
-  declare id: number
+  declare id?: number
   declare date: Date
   declare name: string
   declare address: string

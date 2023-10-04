@@ -40,7 +40,7 @@ function formatter(f: optionsObj['formatter']) {
           v-if="$slots[isString(item) ? item : item.column]"
           #default="scope"
         >
-          <component :is="$slots[isString(item) ? item : item.column]" v-bind="scope" />
+          <slot :name="isString(item) ? item : item.column" v-bind="scope" />
         </template>
       </el-table-column>
     </template>

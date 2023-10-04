@@ -19,7 +19,7 @@ interface modelInfo {
   model: ModelClass
   Option: ModelAttributes
 }
-
+// TODO: 待修改
 function setupModel(conn: Sequelize, info: modelInfo) {
   info.model.init(info.Option, { sequelize: conn })
 }
