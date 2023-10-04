@@ -104,6 +104,9 @@ function CollapseHandle(value?: boolean) {
             </el-breadcrumb>
           </div>
           <div class="flex items-center">
+            <ElButton :bg="false" text size="large" @click="systemStore.toggleTheme()">
+              <CommonThemeSwither size="22px" class="px-11px" :stop="true" />
+            </ElButton>
             <ElButton :bg="false" text size="large" @click="settingFlag = !settingFlag">
               <i class="i-carbon-settings text-18px" />
             </ElButton>

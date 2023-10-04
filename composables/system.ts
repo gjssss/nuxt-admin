@@ -6,6 +6,9 @@ export const useSystemStore = defineStore('system', () => {
     light: '#006333',
     dark: '#00DC82',
   })
+  const theme = useDark({
+    valueLight: 'light',
+  })
   const webTitle = ref('Nuxt Admin')
   const collapse = ref(false)
   const footer = ref('2023 © Nuxt-Admin By GJSSSS.')
@@ -58,6 +61,8 @@ export const useSystemStore = defineStore('system', () => {
     return menuOption.value.map(_map(''))
   })
 
+  const toggleTheme = useToggle(theme)
+
   /**
    * 从页面路径返回页面详情信息
    * @param path 页面路径
@@ -94,11 +99,15 @@ export const useSystemStore = defineStore('system', () => {
 
   return {
     color,
+    theme,
     webTitle,
     collapse,
     footer,
     isClient,
     menuOption,
+
+    toggleTheme,
+
     findPageInfoFromPath,
     pageInfo,
     pagePathArray,
