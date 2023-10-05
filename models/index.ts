@@ -1,4 +1,3 @@
-import type { Model, ModelAttributes } from 'sequelize'
 import { Sequelize } from 'sequelize'
 import user from './user'
 import test from './test'
@@ -11,21 +10,24 @@ export const connect = new Sequelize('test', 'root', '123123123', {
   },
 })
 
-type ModelClass = {
-  new (): Model
-} & typeof Model
-
-interface modelInfo {
-  model: ModelClass
-  Option: ModelAttributes
-}
-// TODO: 待修改
-function setupModel(conn: Sequelize, info: modelInfo) {
-  info.model.init(info.Option, { sequelize: conn })
+// TODO: 缺少类型定义
+function setupModel(modules: any) {
+  modules.model.init(modules.Option, { sequelize: connect })
+  return modules.model
 }
 
-setupModel(connect, user)
-setupModel(connect, test)
-
+user.model.init(user.Option, { sequelize: connect })
+test.model.init(test.Option, { sequelize: connect })
+setupModel(user)
+setupModel(test)
 export const User = user.model
 export const Test = test.model
+
+// type ModelClass = {
+//   new (): Model<InferAttributes<any>, InferCreationAttributes<any>>
+// } & typeof Model
+
+// interface modelInfo {
+//   model: ModelClass
+//   Option: ModelAttributes
+// }
