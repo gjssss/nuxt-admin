@@ -55,7 +55,7 @@ export const useTabsStore = defineStore('tabs', {
           router.push('/')
       }
       else {
-        router.push(this.list[index].path)
+        router.push((this.list[index] ?? this.list[this.list.length - 1]).path)
       }
     },
     /**
