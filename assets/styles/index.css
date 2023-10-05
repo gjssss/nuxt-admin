@@ -2,16 +2,25 @@
   --un-default-border-color: rgba(0, 0, 0, 0.2);
   --main-bg-color: rgba(0, 0, 0, 0.1);
 
-  --el-color-primary: var(--light-color);
-  --el-menu-hover-bg-color: var(--light-color-bg);
+  --color: var(--light-color);
+  --color-bg: var(--light-color-bg);
 }
 
 :root.dark.dark {
   --un-default-border-color: rgba(255, 255, 255, 0.2);
   --main-bg-color: rgba(255, 255, 255, 0.1);
 
-  --el-color-primary: var(--dark-color);
-  --el-menu-hover-bg-color: var(--dark-color-bg);
+  --color: var(--dark-color);
+  --color-bg: var(--dark-color-bg);
+}
+
+.el-button.el-button {
+  --el-button-hover-bg-color: var(--color-bg);
+}
+
+:root:root {
+  --el-color-primary: var(--color);
+  --el-menu-hover-bg-color: var(--color-bg);
 }
 
 .border-style {
