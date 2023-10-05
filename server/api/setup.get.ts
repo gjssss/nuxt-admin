@@ -11,11 +11,13 @@ export default defineEventHandler(async () => {
   })
   await admin.save()
 
-  await Test.build({
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-    date: new Date(),
-  }).save()
+  Array.from({ length: 100 }).forEach(async () => {
+    await Test.build({
+      name: 'Tom',
+      address: 'No. 189, Grove St, Los Angeles',
+      date: new Date(),
+    }).save()
+  })
 
   return '重置数据库'
 })

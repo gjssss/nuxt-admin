@@ -2,6 +2,11 @@ import { acceptHMRUpdate, defineStore } from 'pinia'
 import type { menuOptionItem, pathInfoItem } from '~/types'
 
 export const useSystemStore = defineStore('system', () => {
+  // Element Plus 配置
+  const language = ref('zh-cn')
+  const size = ref<'small' | 'default' | 'large'>('default')
+
+  // 主题颜色配置
   const color = ref({
     light: '#006333',
     dark: '#00DC82',
@@ -9,10 +14,16 @@ export const useSystemStore = defineStore('system', () => {
   const theme = useDark({
     valueLight: 'light',
   })
+
+  // 显示信息配置
   const webTitle = ref('Nuxt Admin')
-  const collapse = ref(false)
   const footer = ref('2023 © Nuxt-Admin By GJSSSS.')
+
+  // 状态变量
+  const collapse = ref(false)
   const isClient = ref(false)
+
+  // 路由配置
   const menuOption = ref<menuOptionItem[]>([
     {
       title: '首页',
@@ -98,12 +109,18 @@ export const useSystemStore = defineStore('system', () => {
   })
 
   return {
+    language,
+    size,
+
     color,
     theme,
+
     webTitle,
-    collapse,
     footer,
+
+    collapse,
     isClient,
+
     menuOption,
 
     toggleTheme,

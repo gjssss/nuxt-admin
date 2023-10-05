@@ -1,6 +1,11 @@
 export interface tableProps<T> {
   data: T[] | undefined
   options: tableOption | string[]
+  /**
+   * 是否启用分页
+   * @default true 启用分页
+   */
+  pagination?: boolean
 }
 
 export type tableOption = optionsObj[]

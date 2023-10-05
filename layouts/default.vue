@@ -1,5 +1,15 @@
 <script setup lang="ts">
+import en from 'element-plus/es/locale/lang/en'
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
+
 const systemStore = useSystemStore()
+const locale = computed(() => {
+  if (systemStore.language === 'zh-cn')
+    return zhCn
+  else if (systemStore.language === 'en')
+    return en
+  else return en
+})
 
 onMounted(() => {
   watchEffect(() => {
@@ -18,7 +28,9 @@ onMounted(() => {
       <CommonLoading />
     </div>
     <ClientOnly>
-      <slot />
+      <el-config-provider :locale="locale" :size="systemStore.size">
+        <slot />
+      </el-config-provider>
     </ClientOnly>
   </div>
 </template>
