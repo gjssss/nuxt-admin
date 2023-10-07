@@ -1,3 +1,4 @@
+import type { ModelAttributes, ModelStatic } from 'sequelize'
 import { Sequelize } from 'sequelize'
 import user from './user'
 import test from './test'
@@ -10,14 +11,11 @@ export const connect = new Sequelize('test', 'root', '123123123', {
   },
 })
 
-// TODO: 缺少类型定义
-function setupModel(modules: any) {
-  modules.model.init(modules.Option, { sequelize: connect })
+function setupModel<T extends ModelStatic<any>>(modules: { model: T; Option: ModelAttributes }) {
+  (modules.model as any).init(modules.Option, { sequelize: connect })
   return modules.model
 }
 
-user.model.init(user.Option, { sequelize: connect })
-test.model.init(test.Option, { sequelize: connect })
 setupModel(user)
 setupModel(test)
 export const User = user.model
