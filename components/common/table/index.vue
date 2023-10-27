@@ -1,8 +1,8 @@
-<script setup lang="tsx" generic="T">
+<script setup lang="ts">
 import { isString } from 'lodash-es'
 import type { optionsObj, tableProps } from './interface'
 
-const props = withDefaults(defineProps<tableProps<T>>(), {
+const props = withDefaults(defineProps<tableProps>(), {
   pagination: true,
 })
 
@@ -12,11 +12,20 @@ defineSlots<{
 
 const currentPage = ref(1)
 const pageSize = ref(10)
+const totalCount = ref(1)
+const shownData = ref<any[]>()
 
-const shownData = computed(() => {
-  if (Array.isArray(props.data))
-    return props.data.slice(pageSize.value * (currentPage.value - 1), pageSize.value * currentPage.value)
-  else return []
+watchEffect(() => {
+  if (Array.isArray(props.data)) {
+    shownData.value = props.data.slice(pageSize.value * (currentPage.value - 1), pageSize.value * currentPage.value)
+    totalCount.value = props.data.length
+  }
+  else {
+    props.data(currentPage.value, pageSize.value).then((d) => {
+      shownData.value = d.data.data
+      totalCount.value = d.data.totalCount
+    })
+  }
 })
 /**
  * 正确的获取和转化不同的formatter为element plus所需类型
@@ -63,7 +72,7 @@ function formatter(f: optionsObj['formatter']) {
         background
         hide-on-single-page
         layout="sizes, prev, pager, next,jumper, ->, total"
-        :total="Array.isArray(data) ? data.length : 1"
+        :total="totalCount"
         :page-sizes="[10, 20, 30, 40, 50, 100]"
       />
     </div>

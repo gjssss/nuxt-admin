@@ -1,5 +1,5 @@
-<script setup lang="tsx">
-const data = await request('/api/user/info')
+<script setup lang="ts">
+// const data = await request('/api/user/info')
 // const option2 = ['id', 'name', 'option']
 const option2 = defineTableOption([
   {
@@ -25,11 +25,20 @@ const option2 = defineTableOption([
     label: '操作',
   },
 ])
+function fetchData(page = 1, pageSize = 10) {
+  return request('/api/user/info', {
+    params: {
+      page, pageSize,
+    },
+  },
+  )
+}
 </script>
 
 <template>
   <div class="card h-full w-full">
-    <CommonTable :data="data.data" :options="option2">
+    <!-- <CommonTable :data="data.data" :options="option2"> -->
+    <CommonTable :data="fetchData" :options="option2">
       <template #option>
         <el-button>确认</el-button>
         <el-button>取消</el-button>

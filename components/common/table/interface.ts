@@ -1,5 +1,7 @@
-export interface tableProps<T> {
-  data: T[] | undefined
+type DataReqType = (page?: number, pageSize?: number) => Promise<any>
+
+export interface tableProps {
+  data: DataReqType | any[]
   options: tableOption | string[]
   /**
    * 是否启用分页
