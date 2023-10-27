@@ -64,6 +64,9 @@ function formatter(f: optionsObj['formatter']) {
           </template>
         </el-table-column>
       </template>
+      <template #empty>
+        <el-empty description="暂无数据" />
+      </template>
     </el-table>
     <div v-if="pagination" class="flex-center mt-20px">
       <el-pagination

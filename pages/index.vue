@@ -11,7 +11,8 @@ const _collapse = ref(collapse.value)
 const settingFlag = ref(false)
 /**
  * 用于渲染菜单项
- * @param props 菜单项
+ * @param props 属性
+ * @param props.option 菜单项
  */
 function sidebarMenu(props: { option: pathInfoItem[] }) {
   const _map = (item: pathInfoItem) =>
@@ -143,7 +144,7 @@ function CollapseHandle(value?: boolean) {
           </el-dropdown>
         </div>
       </div>
-      <main class="box-border flex-1 bg-$main-bg-color p-10px">
+      <main v-loading="systemStore.isLoading" class="box-border flex-1 bg-$main-bg-color p-10px">
         <NuxtPage keepalive />
       </main>
       <footer class="h-30px bg-$main-bg-color text-center">

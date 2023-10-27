@@ -22,6 +22,7 @@ export const useSystemStore = defineStore('system', () => {
   // 状态变量
   const collapse = ref(false)
   const isClient = ref(false)
+  const isLoading = ref(false)
 
   // 路由配置
   const menuOption = ref<menuOptionItem[]>([
@@ -120,6 +121,7 @@ export const useSystemStore = defineStore('system', () => {
 
     collapse,
     isClient,
+    isLoading,
 
     menuOption,
 

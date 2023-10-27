@@ -20,9 +20,16 @@ function _request(...args: Parameters<typeof $fetch>): Promise<{
 
     else
       testAuth(localStorage)
-
     const option: typeof opts = defu({
       headers,
+      onRequest() {
+        // console.log('start')
+        useSystemStore().isLoading = true
+      },
+      onResponse() {
+        // console.log('end')
+        useSystemStore().isLoading = false
+      },
     } as typeof opts, opts)
     return $fetch(request, option)
   }
