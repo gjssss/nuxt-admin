@@ -1,8 +1,8 @@
 <script setup lang="ts">
 withDefaults(defineProps<{
   /**
-    * 图标大小
-    */
+   * 图标大小
+   */
   size: string
   /**
    * 是否选中
