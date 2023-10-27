@@ -1,4 +1,4 @@
-import type { FindAndCountOptions, FindOptions, InferAttributes, InferCreationAttributes, Model, ModelStatic } from 'sequelize'
+import type { FindAndCountOptions, FindOptions, Model, ModelStatic } from 'sequelize'
 
 export async function paginate<T extends ModelStatic<any>>(
   model: T,
