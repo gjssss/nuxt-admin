@@ -3,12 +3,13 @@
   "packageManager": "pnpm@8.9.2",
   "scripts": {
     "build": "nuxi build --dotenv .env.production.local",
+    "build:stub": "pnpm -F nuxt-sequelize dev",
     "dev": "nuxi dev",
     "dev:pwa": "VITE_PLUGIN_PWA=true nuxi dev",
     "start": "node .output/server/index.mjs",
     "typecheck": "vue-tsc --noEmit",
     "lint": "eslint .",
-    "postinstall": "nuxi prepare",
+    "postinstall": "nuxi prepare && pnpm build:stub",
     "generate": "nuxi generate",
     "start:generate": "npx serve .output/public"
   },
@@ -16,12 +17,13 @@
     "jsonwebtoken": "^9.0.2",
     "lodash-es": "^4.17.21",
     "nprogress": "^0.2.0",
+    "nuxt-sequelize": "workspace:*",
     "ohash": "^1.1.3",
     "sass": "^1.69.5",
     "sequelize": "^6.33.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.43.1",
+    "@antfu/eslint-config": "^0.41.0",
     "@element-plus/nuxt": "^1.0.6",
     "@iconify-json/carbon": "^1.1.21",
     "@iconify-json/twemoji": "^1.1.12",

@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     '@vite-pwa/nuxt',
     '@element-plus/nuxt',
     'nuxt-icon',
+    'nuxt-sequelize',
   ],
 
   experimental: {
