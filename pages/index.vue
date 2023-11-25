@@ -17,21 +17,27 @@ const settingFlag = ref(false)
 function sidebarMenu(props: { option: pathInfoItem[] }) {
   const _map = (item: pathInfoItem) =>
     item.children && item.children.length > 0
-      ? <ElSubMenu index={item.path} popperClass='page-menu'>
-        {{
-          title: () => <>
-            <ElIcon><Icon name={item.icon ?? 'i-carbon-home'} /></ElIcon>
-            <span>{!collapse.value ? item.title : ''}</span>
-          </>,
-          default: () => item.children?.map(_map),
-        }}
-      </ElSubMenu>
-      : <ElMenuItem index={item.path}>
-        {{
-          default: () => <ElIcon><Icon name={item.icon ?? 'i-carbon-home'} /></ElIcon>,
-          title: () => <>{!collapse.value || item.key ? item.title : ''}</>,
-        }}
-      </ElMenuItem>
+      ? (
+        <ElSubMenu index={item.path} popperClass="page-menu">
+          {{
+            title: () => (
+              <>
+                <ElIcon><Icon name={item.icon ?? 'i-carbon-home'} /></ElIcon>
+                <span>{!collapse.value ? item.title : ''}</span>
+              </>
+            ),
+            default: () => item.children?.map(_map),
+          }}
+        </ElSubMenu>
+        )
+      : (
+        <ElMenuItem index={item.path}>
+          {{
+            default: () => <ElIcon><Icon name={item.icon ?? 'i-carbon-home'} /></ElIcon>,
+            title: () => <>{!collapse.value || item.key ? item.title : ''}</>,
+          }}
+        </ElMenuItem>
+        )
   return props.option.map(_map)
 }
 

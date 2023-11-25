@@ -28,10 +28,10 @@ const option2 = defineTableOption([
 function fetchData(page = 1, pageSize = 10) {
   return request('/api/user/info', {
     params: {
-      page, pageSize,
+      page,
+      pageSize,
     },
-  },
-  )
+  })
 }
 </script>
 

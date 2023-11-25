@@ -9,8 +9,8 @@ export function testAuth(Storage: Storage) {
     if (route.path.startsWith('/login')) { // 只有登录页才执行跳转首页操作，目的是自动登录
       if (
         route.query.redirect // 如果有重定向参数
-      && typeof route.query.redirect === 'string' // 并且重定向参数是个字符串
-      && !route.query.redirect.startsWith('/login') // 并且重定向目的地不是登录页面
+        && typeof route.query.redirect === 'string' // 并且重定向参数是个字符串
+        && !route.query.redirect.startsWith('/login') // 并且重定向目的地不是登录页面
       )
         return navigateTo(route.query.redirect)
       return navigateTo('/')

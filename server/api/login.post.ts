@@ -1,8 +1,6 @@
 import { sha256 } from 'ohash'
 import jwt from 'jsonwebtoken'
-import { User } from '~/models'
-import type { ResDataType } from '~/utils/format'
-import { formatResData } from '~/utils/format'
+import type { ResDataType } from '~/server/utils/format'
 
 interface resType {
   token: string
@@ -14,17 +12,15 @@ export default defineEventHandler(async (event): Promise<ResDataType<resType | n
 
   let token: string = ''
   try {
-    const user = await User.findOne({
-      where: {
-        userName: body.userName,
-        password: sha256(body.password),
-      },
+    const db = await useDB()
+    const user = await db.query.user.findFirst({
+      where: (user, { eq, and }) => and(eq(user.userName, body.userName), eq(user.password, sha256(body.password))),
     })
 
     if (user) {
       token = jwt.sign({
-        userName: user?.userName,
-        password: user?.password,
+        userName: user.userName,
+        password: user.password,
       }, runtimeConfig.secret, runtimeConfig.tokenExpired ? { expiresIn: runtimeConfig.tokenExpired } : { })
     }
     else {

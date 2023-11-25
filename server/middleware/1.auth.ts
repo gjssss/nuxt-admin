@@ -1,12 +1,11 @@
 import jwt from 'jsonwebtoken'
-import { formatResData } from '~/utils/format'
 
 export default defineEventHandler(async (event) => {
   if (event.path.startsWith('/api') && event.path !== '/api/login') {
     const token = event.headers.get('Authorization')
     if (token) {
       const runtimeConfig = useRuntimeConfig()
-      jwt.verify(token, runtimeConfig.secret, (err, decode) => {
+      jwt.verify(token, runtimeConfig.secret, (err: any, decode: any) => {
         if (err) {
           return formatResData(null, {
             mode: 'unAuth',
