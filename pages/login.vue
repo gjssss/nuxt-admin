@@ -1,6 +1,13 @@
 <script setup lang="ts">
-onBeforeMount(() => {
-  testAuth(localStorage)
+import Cookies from 'js-cookie'
+
+onBeforeMount(async () => {
+  // 在登录页首先检查Cookie是否正确，而后正确的跳转页面
+  const { error } = await useRequest('/api/whoami')
+  if (error)
+    Cookies.remove('Authorization')
+  else
+    autoRoute(Cookies.get('Authorization'))
 })
 
 const formData = ref({
@@ -9,12 +16,11 @@ const formData = ref({
 })
 async function submit() {
   try {
-    const { data } = await request('/api/login', {
+    await useRequest('/api/login', {
       body: formData.value,
       method: 'post',
     })
-    localStorage.setItem('Authorization', data!.token)
-    testAuth(localStorage)
+    autoRoute(Cookies.get('Authorization'))
   }
   catch (e) {
     // console.log(e)

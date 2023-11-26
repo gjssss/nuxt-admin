@@ -37,6 +37,7 @@ export default defineEventHandler(async (event): Promise<ResDataType<resType | n
       msg: '登录失败',
     })
   }
+  setCookie(event, 'Authorization', token)
   return formatResData({
     token,
   })

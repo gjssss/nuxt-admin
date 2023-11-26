@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// const data = await request('/api/user/info')
+// const data = await useRequest('/api/user/info')
 // const option2 = ['id', 'name', 'option']
 const option2 = defineTableOption([
   {
@@ -25,13 +25,16 @@ const option2 = defineTableOption([
     label: '操作',
   },
 ])
-function fetchData(page = 1, pageSize = 10) {
-  return request('/api/user/info', {
+async function fetchData(page = 1, pageSize = 10) {
+  const data = await useRequest('/api/user/info', {
     params: {
       page,
       pageSize,
     },
   })
+  console.log(data)
+
+  return []
 }
 </script>
 
