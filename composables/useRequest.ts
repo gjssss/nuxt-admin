@@ -7,8 +7,11 @@ function defaultOpt<T>(): T {
     onRequest() {
       useSystemStore().isLoading = true
     },
-    onResponse() {
+    onResponse({ response }) {
       useSystemStore().isLoading = false
+
+      // transform data structer
+      response._data = response._data.data
     },
     onResponseError({ response }) {
       // 处理登录后的鉴权失败的响应
