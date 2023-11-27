@@ -1,16 +1,9 @@
 import { defu } from 'defu'
 import Cookies from 'js-cookie'
 
-// TODO: 这里有一点BUG，这样自定义Fetch会造成，在生成的useRequest中使用请求钩子onRequest会对这里的函数进行覆盖
-function _useRequest(...args: Parameters<typeof useFetch>) {
-  const [request, opts] = args
-  const headers: Record<string, string> = {
-    'Accept': 'application/json',
-    'Cache-Control': 'no-cache',
-  }
-
-  const def: typeof opts = {
-    headers,
+// 在这里控制请求默认配置
+function defaultOpt<T>(): T {
+  return buildOpt({
     onRequest() {
       useSystemStore().isLoading = true
     },
@@ -24,8 +17,26 @@ function _useRequest(...args: Parameters<typeof useFetch>) {
         autoRoute()
       }
     },
-  }
-  return useFetch(request, defu(opts, def))
+  }) as T
+}
+
+// TODO: 这里有一点BUG，这样自定义Fetch会造成，在生成的useRequest中使用请求钩子onRequest会对这里的函数进行覆盖
+function _useRequest(...args: Parameters<typeof useFetch>) {
+  const [request, opts] = args
+  return useFetch(request, defu(opts, defaultOpt<typeof opts>()))
+}
+
+function _request(...args: Parameters<typeof $fetch>) {
+  const [request, opts] = args
+  return $fetch(request, defu(opts, defaultOpt<typeof opts>()))
+}
+
+/**
+ * 构造option，提供编辑器智能提示
+ */
+function buildOpt(opt: Parameters<typeof $fetch>[1]) {
+  return opt
 }
 
 export const useRequest = _useRequest as typeof useFetch
+export const $request = _request as typeof $fetch
