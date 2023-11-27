@@ -26,15 +26,12 @@ const option2 = defineTableOption([
   },
 ])
 async function fetchData(page = 1, pageSize = 10) {
-  const data = await useRequest('/api/user/info', {
+  return await $request('/api/user/info', {
     params: {
       page,
       pageSize,
     },
   })
-  console.log(data)
-
-  return []
 }
 </script>
 
