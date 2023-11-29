@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import Cookies from 'js-cookie'
 
-onBeforeMount(async () => {
-  // 在登录页首先检查Cookie是否正确，而后正确的跳转页面
-  const { error } = await useRequest('/api/whoami')
-  if (error)
-    Cookies.remove('Authorization')
-  else
+onMounted(async () => {
+  try {
+    const data = await $fetch('/api/whoami')
     autoRoute(Cookies.get('Authorization'))
+    notify.success(`你好，${data.data?.userName ?? 'Unkown(你是怎么进来的 <.<)'}`, '登录成功')
+  }
+  catch (error) {
+    Cookies.remove('Authorization')
+  }
 })
 
 const formData = ref({

@@ -10,14 +10,14 @@ defineSlots<{
   [key: string]: (row: any, column: any, $index: number) => any
 }>()
 
+const controlPanel = ref<string>('')
+
 const {
   data,
   currentPage,
   pageCount,
   pageSize,
   refresh,
-  next,
-  prev,
   close,
 } = usePaginate(props.data)
 /**
@@ -34,11 +34,39 @@ function formatter(f: optionsObj['formatter']) {
     }
   }
 }
+
+function toggleSearch() {
+  controlPanel.value = controlPanel.value ? '' : 'control'
+}
+onUnmounted(() => {
+  close()
+})
 </script>
 
 <template>
   <div>
-    <el-table :data="data" table-layout="auto">
+    <!-- TODO: 按钮多种样式的颜色修改 -->
+    <div class="flex justify-end">
+      <el-button-group>
+        <el-button @click="refresh()">
+          刷新
+        </el-button>
+        <!-- TODO: 表搜索模块 -->
+        <el-button @click="toggleSearch()">
+          搜索
+        </el-button>
+      </el-button-group>
+    </div>
+    <el-collapse v-model="controlPanel" accordion class="search-collapse">
+      <el-collapse-item name="control">
+        <template #default>
+          <div>
+            Search Buidling 🚧
+          </div>
+        </template>
+      </el-collapse-item>
+    </el-collapse>
+    <el-table :data="data" table-layout="auto" class="mt4">
       <template
         v-for="item in options"
         :key="isString(item) ? item : item.column"
@@ -75,6 +103,17 @@ function formatter(f: optionsObj['formatter']) {
   </div>
 </template>
 
-<style>
-
+<style lang="scss">
+.search-collapse{
+  &.el-collapse, .el-collapse-item__wrap{
+    border: none;
+  }
+  .el-collapse-item__header{
+    height: 0;
+    border: none;
+  }
+  .el-collapse-item__arrow{
+    display: none;
+  }
+}
 </style>
