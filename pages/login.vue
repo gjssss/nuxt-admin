@@ -6,6 +6,7 @@ onMounted(async () => {
     const data = await $fetch('/api/whoami')
     autoRoute(Cookies.get('Authorization'))
     notify.success(`你好，${data.data?.userName ?? 'Unkown(你是怎么进来的 <.<)'}`, '登录成功')
+    useNuxtData('username').data.value = data.data?.userName
   }
   catch (error) {
     Cookies.remove('Authorization')
