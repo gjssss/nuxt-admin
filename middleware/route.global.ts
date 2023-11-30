@@ -1,3 +1,5 @@
+import process from 'node:process'
+
 export default defineNuxtRouteMiddleware((to, from) => {
   if (process.server) {
     if (to.path !== '/login') {

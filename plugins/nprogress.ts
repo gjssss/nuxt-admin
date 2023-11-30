@@ -1,4 +1,4 @@
-/* eslint-disable node/prefer-global/process */
+import process from 'node:process'
 import NProgress from 'nprogress'
 import type { Router } from '#vue-router'
 
