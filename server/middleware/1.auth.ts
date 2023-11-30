@@ -9,17 +9,15 @@ export default defineEventHandler(async (event) => {
         event.context.info = jwt.verify(token, runtimeConfig.secret)
       }
       catch (error) {
-        return formatResData(null, {
-          mode: 'unAuth',
-          msg: `令牌错误`,
-        })
+        event.context.mode = 'unAuth'
+        event.context.msg = '令牌错误'
+        return {}
       }
     }
     else {
-      return formatResData(null, {
-        mode: 'unAuth',
-        msg: '请先登录',
-      })
+      event.context.mode = 'unAuth'
+      event.context.msg = '请先登录'
+      return {}
     }
   }
 })

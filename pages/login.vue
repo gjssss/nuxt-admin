@@ -3,10 +3,10 @@ import Cookies from 'js-cookie'
 
 onMounted(async () => {
   try {
-    const data = await $fetch('/api/whoami')
+    const data = await $request('/api/whoami')
     autoRoute(Cookies.get('Authorization'))
-    notify.success(`你好，${data.data?.userName ?? 'Unkown(你是怎么进来的 <.<)'}`, '登录成功')
-    useNuxtData('username').data.value = data.data?.userName
+    notify.success(`你好，${data ?? 'Unkown(你是怎么进来的 <.<)'}`, '登录成功')
+    useNuxtData('username').data.value = data
   }
   catch (error) {
     Cookies.remove('Authorization')

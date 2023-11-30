@@ -1,12 +1,7 @@
 import { sha256 } from 'ohash'
 import jwt from 'jsonwebtoken'
-import type { ResDataType } from '~/server/utils/format'
 
-interface resType {
-  token: string
-}
-
-export default defineEventHandler(async (event): Promise<ResDataType<resType | null>> => {
+export default defineEventHandler(async (event) => {
   const body = await readBody(event)
   const runtimeConfig = useRuntimeConfig()
 
@@ -25,20 +20,16 @@ export default defineEventHandler(async (event): Promise<ResDataType<resType | n
     }
     else {
       setResponseStatus(event, 401, 'user is not existed')
-      return formatResData(null, {
-        mode: 'bad',
-        msg: '用户不存在',
-      })
+      event.context.mode = 'bad'
+      event.context.msg = '用户不存在'
+      return {}
     }
   }
   catch (e) {
-    return formatResData(null, {
-      mode: 'bad',
-      msg: '登录失败',
-    })
+    event.context.mode = 'bad'
+    event.context.msg = '登录失败'
+    return {}
   }
   setCookie(event, 'Authorization', token)
-  return formatResData({
-    token,
-  })
+  return token
 })

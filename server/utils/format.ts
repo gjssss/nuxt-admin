@@ -17,7 +17,7 @@ export function codeFromMode(mode: HttpMode) {
   }
 }
 interface formatResOption {
-  mode: HttpMode
+  mode?: HttpMode
   msg?: string
 }
 
@@ -41,8 +41,8 @@ function formatResData<T>(data: T | null, option?: HttpMode | formatResOption) {
     resData.msg = 'success'
   }
   else {
-    setResponseStatus(event, codeFromMode(option.mode), option.msg ?? option.mode)
-    resData.msg = option.msg ?? option.mode
+    setResponseStatus(event, codeFromMode(option.mode ?? 'success'), option.msg ?? option.mode ?? 'success')
+    resData.msg = option.msg ?? option.mode ?? 'success'
   }
   if (data)
     resData.data = data
