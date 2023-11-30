@@ -19,6 +19,7 @@ export function usePaginate<T>(source: sourceFunc<T> | Array<T>): resolvePage<T>
     const close = watchEffect(() => {
       data.value = source.slice(pageSize.value * (currentPage.value - 1), pageSize.value * currentPage.value)
     })
+    pageCount.value = source.length
     return {
       data,
       currentPage,

@@ -1,5 +1,11 @@
 <script setup lang="ts">
-// const data = await useRequest('/api/user/info')
+// const data = await $request('/api/user/info', {
+//   params: {
+//     page: 1,
+//     pageSize: 100,
+//   },
+// })
+// const d = data.data as unknown as any[]
 // const option2 = ['id', 'name', 'option']
 const option2 = defineTableOption([
   {
@@ -37,7 +43,7 @@ async function fetchData(page = 1, pageSize = 10) {
 
 <template>
   <div class="card h-full w-full">
-    <!-- <CommonTable :data="data.data" :options="option2"> -->
+    <!-- <CommonTable :data="d" :options="option2"> -->
     <CommonTable :data="fetchData" :options="option2">
       <template #option>
         <el-button>确认</el-button>

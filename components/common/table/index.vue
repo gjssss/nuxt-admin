@@ -20,6 +20,7 @@ const {
   refresh,
   close,
 } = usePaginate(props.data)
+
 /**
  * 正确的获取和转化不同的formatter为element plus所需类型
  * @param f options的formatter函数
