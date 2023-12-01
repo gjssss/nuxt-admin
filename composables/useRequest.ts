@@ -9,8 +9,6 @@ function defaultOpt<T>(): T {
     },
     onResponse({ response }) {
       useSystemStore().isLoading = false
-
-      // TODO: ERROR TYPE
       // transform data structer
       response._data = response._data.data
     },

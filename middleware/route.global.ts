@@ -1,4 +1,4 @@
-import process from 'node:process'
+/* eslint-disable node/prefer-global/process */
 
 export default defineNuxtRouteMiddleware((to, from) => {
   if (process.server) {

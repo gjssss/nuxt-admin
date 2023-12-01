@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <div class="flex-center card h-full flex-col">
+  <div class="card flex-center h-full flex-col">
     <div class="logo relative" />
     <div class="whitespace-nowrap text-38px font-bold c-$el-color-primary">
       Welcom Nuxt Admin
