@@ -12,7 +12,8 @@ export function autoRoute(flag?: string | undefined | boolean) {
         && !route.query.redirect.startsWith('/login') // 并且重定向目的地不是登录页面
       )
         navigateTo(route.query.redirect)
-      navigateTo('/')
+      else
+        navigateTo('/')
     }
   }
   else {
