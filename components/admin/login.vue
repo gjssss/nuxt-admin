@@ -103,23 +103,13 @@ const { userName, password } = useVModels(props, emits)
 
 .login-box .user-box label {
   position: absolute;
-  top: 0;
+  top: -20px;
   left: 0;
   padding: 10px 0;
-  font-size: 16px;
+  font-size: 12px;
   color: #fff;
   pointer-events: none;
   transition: .5s;
-}
-
-.login-box .user-box input:focus~label,
-.login-box .user-box input:valid~label,
-.login-box .user-box input.is-active~label
-{
-  top: -20px;
-  left: 0;
-  color: #fff;
-  font-size: 12px;
 }
 
 .login-box form a {
