@@ -46,7 +46,9 @@ async function fetchData(page = 1, pageSize = 10) {
     <!-- <CommonTable :data="d" :options="option2"> -->
     <CommonTable :data="fetchData" :options="option2">
       <template #option>
-        <el-button>确认</el-button>
+        <el-button type="success">
+          确认
+        </el-button>
         <el-button>取消</el-button>
       </template>
     </CommonTable>

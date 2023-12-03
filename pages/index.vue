@@ -150,10 +150,10 @@ function CollapseHandle(value?: boolean) {
           </el-dropdown>
         </div>
       </div>
-      <main v-loading="systemStore.isLoading" class="box-border flex-1 bg-$main-bg-color p-10px">
+      <main v-loading="systemStore.isLoading" class="box-border flex-1 bg-$el-bg-color-page p-10px">
         <NuxtPage :keepalive="{ exclude: ['user'] }" />
       </main>
-      <footer class="h-30px bg-$main-bg-color text-center">
+      <footer class="h-30px bg-$el-bg-color-page text-center">
         <ElLink :underline="false" type="info">
           {{ systemStore.footer }}
         </ElLink>
@@ -244,7 +244,7 @@ function CollapseHandle(value?: boolean) {
   font-size: 18px;
 
   &.tabs-control {
-    border-left: 1px solid var(--un-default-border-color);
+    border-left: 1px solid var(--el-border-color-light);
     border-radius: 0;
   }
 }

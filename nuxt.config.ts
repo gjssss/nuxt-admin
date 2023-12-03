@@ -31,6 +31,20 @@ export default defineNuxtConfig({
     classSuffix: '',
   },
 
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@use "@/assets/styles/element-plus.scss" as element;`,
+        },
+      },
+    },
+  },
+  elementPlus: {
+    importStyle: 'scss',
+    themes: ['dark'],
+  },
+
   nitro: {
     esbuild: {
       options: {

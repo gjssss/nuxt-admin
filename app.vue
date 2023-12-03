@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { appName } from '~/constants'
-import 'element-plus/theme-chalk/dark/css-vars.css'
 import 'nprogress/nprogress.css'
 
 useHead({
@@ -16,7 +15,9 @@ useHead({
 </template>
 
 <style>
-html, body , #__nuxt{
+html,
+body,
+#__nuxt {
   height: 100vh;
   margin: 0;
   padding: 0;

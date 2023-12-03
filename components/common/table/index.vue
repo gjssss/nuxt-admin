@@ -68,20 +68,13 @@ onUnmounted(() => {
       </el-collapse-item>
     </el-collapse>
     <el-table :data="data" table-layout="auto" class="mt4">
-      <template
-        v-for="item in options"
-        :key="isString(item) ? item : item.column"
-      >
+      <template v-for="item in options" :key="isString(item) ? item : item.column">
         <el-table-column
           :prop="isString(item) ? item : item.column"
           :label="isString(item) ? item : item.label ?? item.column"
-          :formatter="isString(item) ? undefined : formatter(item.formatter)"
-          align="center"
+          :formatter="isString(item) ? undefined : formatter(item.formatter)" align="center"
         >
-          <template
-            v-if="$slots[isString(item) ? item : item.column]"
-            #default="scope"
-          >
+          <template v-if="$slots[isString(item) ? item : item.column]" #default="scope">
             <slot :name="isString(item) ? item : item.column" v-bind="scope" />
           </template>
         </el-table-column>
@@ -92,28 +85,27 @@ onUnmounted(() => {
     </el-table>
     <div v-if="pagination" class="flex-center mt-20px">
       <el-pagination
-        v-model:current-page="currentPage"
-        v-model:page-size="pageSize"
-        background
-        hide-on-single-page
-        layout="sizes, prev, pager, next,jumper, ->, total"
-        :total="pageCount"
-        :page-sizes="[10, 20, 30, 40, 50, 100]"
+        v-model:current-page="currentPage" v-model:page-size="pageSize" background hide-on-single-page
+        layout="sizes, prev, pager, next,jumper, ->, total" :total="pageCount" :page-sizes="[10, 20, 30, 40, 50, 100]"
       />
     </div>
   </div>
 </template>
 
 <style lang="scss">
-.search-collapse{
-  &.el-collapse, .el-collapse-item__wrap{
+.search-collapse {
+
+  &.el-collapse,
+  .el-collapse-item__wrap {
     border: none;
   }
-  .el-collapse-item__header{
+
+  .el-collapse-item__header {
     height: 0;
     border: none;
   }
-  .el-collapse-item__arrow{
+
+  .el-collapse-item__arrow {
     display: none;
   }
 }

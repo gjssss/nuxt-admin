@@ -1,0 +1,21 @@
+$dark-colors: (
+    "primary": (
+        "base": #00DC82
+    ),
+    "success": (
+        "base": #4CAF50
+    ),
+    "warning": (
+        "base": #FFC107
+    ),
+    "danger": (
+        "base": #FF5252
+    ),
+    "error": (
+        "base": #FF1744
+    ),
+);
+
+@forward "element-plus/theme-chalk/src/dark/var.scss" with (
+    $colors: $dark-colors
+);

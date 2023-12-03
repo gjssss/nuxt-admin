@@ -1,0 +1,29 @@
+@use "element-plus/theme-chalk/src/mixins/function.scss" as *;
+
+$light-colors: (
+    "primary": (
+        "base": #006333
+    ),
+    "success": (
+        "base": #008854
+    ),
+    "warning": (
+        "base": #ff8c00
+    ),
+    "danger": (
+        "base": #ff4040
+    ),
+    "error": (
+        "base": #cc3333
+    )
+);
+$-button: (
+    "divide-border-color": getCssVar("border-color")
+);
+
+@forward "element-plus/theme-chalk/src/common/var.scss" with (
+    $colors: $light-colors,
+    $button: $-button
+);
+
+@use "./element-plus-dark.scss";
