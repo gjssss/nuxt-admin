@@ -1,12 +1,12 @@
+/* eslint-disable node/prefer-global/process */
 import jwt from 'jsonwebtoken'
 
 export default defineEventHandler(async (event) => {
   if (event.path.startsWith('/api') && event.path !== '/api/login') {
     const token = getCookie(event, 'Authorization')
     if (token) {
-      const runtimeConfig = useRuntimeConfig()
       try {
-        event.context.info = jwt.verify(token, runtimeConfig.secret)
+        event.context.info = jwt.verify(token, process.env.NUXT_SECRET ?? 'hello')
       }
       catch (error) {
         event.context.mode = 'unAuth'

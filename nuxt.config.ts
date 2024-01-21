@@ -1,4 +1,3 @@
-import process from 'node:process'
 import { pwa } from './config/pwa'
 import { appDescription } from './constants/index'
 
@@ -17,7 +16,6 @@ export default defineNuxtConfig({
     // when using generate, payload js assets included in sw precache manifest
     // but missing on offline, disabling extraction it until fixed
     payloadExtraction: false,
-    inlineSSRStyles: false,
     renderJsonPayloads: true,
     typedPages: true,
   },
@@ -81,21 +79,5 @@ export default defineNuxtConfig({
 
   devtools: {
     enabled: true,
-  },
-
-  runtimeConfig: {
-    tokenExpired: '3h',
-    secret: '',
-  },
-  $development: {
-    runtimeConfig: {
-      tokenExpired: '',
-      secret: 'HelloNuxtAdmin',
-    },
-  },
-  $production: {
-    runtimeConfig: {
-      secret: process.env.NUXT_SECRET,
-    },
   },
 })

@@ -1,9 +1,9 @@
+/* eslint-disable node/prefer-global/process */
 import { sha256 } from 'ohash'
 import jwt from 'jsonwebtoken'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
-  const runtimeConfig = useRuntimeConfig()
 
   let token: string = ''
   try {
@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
       token = jwt.sign({
         userName: user.userName,
         password: user.password,
-      }, runtimeConfig.secret, runtimeConfig.tokenExpired ? { expiresIn: runtimeConfig.tokenExpired } : { })
+      }, process.env.NUXT_SECRET ?? 'hello', process.env.TOKEN_EXPIRED ? { expiresIn: process.env.TOKEN_EXPIRED } : { })
     }
     else {
       setResponseStatus(event, 401, 'user is not existed')
