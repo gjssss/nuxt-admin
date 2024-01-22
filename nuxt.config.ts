@@ -1,4 +1,3 @@
-import { pwa } from './config/pwa'
 import { appDescription } from './constants/index'
 
 export default defineNuxtConfig({
@@ -74,8 +73,6 @@ export default defineNuxtConfig({
       ],
     },
   },
-
-  pwa,
 
   devtools: {
     enabled: true,
