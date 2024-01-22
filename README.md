@@ -1,81 +1,65 @@
-<p align="center">
-<img src="https://user-images.githubusercontent.com/11247099/140462375-7b7ac4db-35b7-453c-8a05-13d8d20282c4.png" width="600"/>
-</p>
+# Nuxt Admin
 
-<h2 align="center">
-<a href="https://github.com/antfu/vitesse">Vitesse</a> for Nuxt 3
-</h2><br>
+这个是一个使用Nuxt开发的全栈后台项目
 
-<p align="center">
-<br>
-<a href="https://vitesse-nuxt3.netlify.app/">🖥 Online Preview</a>
-<br><br>
-<a href="https://stackblitz.com/github/antfu/vitesse-nuxt3"><img src="https://developer.stackblitz.com/img/open_in_stackblitz.svg" alt=""></a>
-</p>
+[演示地址](https://nuxt-admin.hellogjs.top/)
 
-## Features
+测试账号：admin
 
-- 💚 [Nuxt 3](https://nuxt.com/) - SSR, ESR, File-based routing, components auto importing, modules, etc.
+测试密码：123123
 
-- ⚡️ Vite - Instant HMR.
+## 思想
 
-- 🎨 [UnoCSS](https://github.com/unocss/unocss) - The instant on-demand atomic CSS engine.
+致力于提高开发者**开发体验** (DX)，使用简单的配置就可以完成大多数常见业务。
 
-- 😃 Use icons from any icon sets in Pure CSS, powered by [UnoCSS](https://github.com/unocss/unocss).
+## 模块介绍
 
-- 🔥 The `<script setup>` syntax.
+### 数据库
 
-- 🍍 [State Management via Pinia](https://github.com/vuejs/pinia), see [./composables/user.ts](./composables/user.ts).
+#### 介绍
 
-- 📑 [Layout system](./layouts).
+目前可使用的数据库有 `mysql`
 
-- 📥 APIs auto importing - for Composition API, VueUse and custom composables.
+数据库配置通过环境变量 `DB_URL`，示例：`mysql://root:123123123@localhost:3306/test`
 
-- 🏎 Zero-config cloud functions and deploy.
+添加表模型方式：
 
-- 🦾 TypeScript, of course.
+* 在`server/db`中添加模型，新建文件如`test.ts`，添加Drizzle ORM表模型
+  ```ts
+  import { date, mysqlTable, serial, varchar } from 'drizzle-orm/mysql-core'
+  
+  export const test = mysqlTable('test', {
+    id: serial('id').primaryKey(),
+    date: date('date'),
+    name: varchar('name', { length: 256 }),
+    address: varchar('address', { length: 256 }),
+  })
+  ```
 
-- 📲 [PWA](https://github.com/vite-pwa/nuxt) with offline support and auto update behavior.
+* 在`server/db/index.ts`中导出
+  ```ts
+  export * from './user'
+  ```
 
+#### API
 
-## Plugins
+* `useDB`
 
-### Nuxt Modules
+    使用`const db = await useDB()`获取到数据库，使用方法具体参考Drizzle ORM文档
 
-- [VueUse](https://github.com/vueuse/vueuse) - collection of useful composition APIs.
-- [ColorMode](https://github.com/nuxt-modules/color-mode) - dark and Light mode with auto detection made easy with Nuxt.
-- [UnoCSS](https://github.com/unocss/unocss) - the instant on-demand atomic CSS engine.
-- [Pinia](https://github.com/vuejs/pinia) - intuitive, type safe, light and flexible Store for Vue.
-- [VitePWA](https://github.com/vite-pwa/nuxt) - zero-config PWA Plugin for Nuxt 3.
-- [DevTools](https://github.com/nuxt/devtools) - unleash Nuxt Developer Experience.
+* `Tables` type
 
-## IDE
+    使用`import type { Tables } from './useQ'`导入，用于获取所有表的名称
 
-We recommend using [VS Code](https://code.visualstudio.com/) with [Volar](https://github.com/johnsoncodehk/volar) to get the best experience (You might want to disable [Vetur](https://vuejs.github.io/vetur/) if you have it).
+#### 实现
 
-## Variations
+数据库使用Drizzle ORM实现，再`useDB`中使用单例模式连接数据库
 
-- [vitesse](https://github.com/antfu/vitesse) - Opinionated Vite Starter Template
-- [vitesse-lite](https://github.com/antfu/vitesse-lite) - Lightweight version of Vitesse
-- [vitesse-nuxt-bridge](https://github.com/antfu/vitesse-nuxt-bridge) - Vitesse for Nuxt 2 with Bridge
-- [vitesse-webext](https://github.com/antfu/vitesse-webext) - WebExtension Vite starter template
+### 登录和权限
 
-## Try it now!
+#### 实现
 
-### Online
+后端：使用`jwt`库和环境变量`NUXT_SECRET`生成Token，在login.post接口中setCookie添加到Cookie中。添加Middleware `1.auth.ts` 验证Token并且将信息附加到`event.context.info`中。
 
-<a href="https://stackblitz.com/github/antfu/vitesse-nuxt3"><img src="https://developer.stackblitz.com/img/open_in_stackblitz.svg" alt=""></a>
+前端：在服务端渲染时，首先会重定向到登录页面判断登录状态，在登录页面通过请求`whoami`接口来验证是否是有效Token。
 
-### GitHub Template
-
-[Create a repo from this template on GitHub](https://github.com/antfu/vitesse-nuxt3/generate).
-
-### Clone to local
-
-If you prefer to do it manually with the cleaner git history
-
-```bash
-npx degit antfu/vitesse-nuxt3 my-nuxt3-app
-cd my-nuxt3-app
-pnpm i # If you don't have pnpm installed, run: npm install -g pnpm
-```
