@@ -27,7 +27,7 @@
 * 在`server/db`中添加模型，新建文件如`test.ts`，添加Drizzle ORM表模型
   ```ts
   import { date, mysqlTable, serial, varchar } from 'drizzle-orm/mysql-core'
-  
+
   export const test = mysqlTable('test', {
     id: serial('id').primaryKey(),
     date: date('date'),
@@ -62,4 +62,3 @@
 后端：使用`jwt`库和环境变量`NUXT_SECRET`生成Token，在login.post接口中setCookie添加到Cookie中。添加Middleware `1.auth.ts` 验证Token并且将信息附加到`event.context.info`中。
 
 前端：在服务端渲染时，首先会重定向到登录页面判断登录状态，在登录页面通过请求`whoami`接口来验证是否是有效Token。
-
