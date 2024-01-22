@@ -12,10 +12,11 @@ onMounted(async () => {
     Cookies.remove('Authorization')
   }
 })
+const route = useRoute()
 
 const formData = ref({
-  userName: '',
-  password: '',
+  userName: route.query.userName?.toString() ?? '',
+  password: route.query.password?.toString() ?? '',
 })
 async function submit() {
   try {
