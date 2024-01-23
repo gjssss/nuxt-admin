@@ -27,7 +27,7 @@
 * 在`server/db`中添加模型，新建文件如`test.ts`，添加Drizzle ORM表模型
   ```ts
   import { date, mysqlTable, serial, varchar } from 'drizzle-orm/mysql-core'
-  
+
   export const test = mysqlTable('test', {
     id: serial('id').primaryKey(),
     date: date('date'),
@@ -73,14 +73,14 @@
 
 ```ts
 function withPagination<T extends MySqlTable<TableConfig>>(table: T, option?: {
-    select?: SelectedFields;
-    where?: SQL | boolean | string[];
+  select?: SelectedFields
+  where?: SQL | boolean | string[]
 }): Promise<{
-    data result[],
-    totalCount: number,
-    page: number,
-    pageSize: number,
-  }>
+  data: result[]
+  totalCount: number
+  page: number
+  pageSize: number
+}>
 ```
 
 相关Drizzle ORM链接
@@ -92,7 +92,7 @@ function withPagination<T extends MySqlTable<TableConfig>>(table: T, option?: {
 当where为**SQL**类型可按照文档中过滤，如获取学生年龄等于18岁的记录。
 
 ```ts
-await withPagination(student,{
+await withPagination(student, {
   where: eq(student.age, 18)
 })
 ```

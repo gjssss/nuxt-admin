@@ -1,13 +1,5 @@
 <script setup lang="ts">
-// const data = await $request('/api/user/info', {
-//   params: {
-//     page: 1,
-//     pageSize: 100,
-//   },
-// })
-// const d = data.data as unknown as any[]
-// const option2 = ['id', 'name', 'option']
-const option2 = defineTableOption([
+const option = defineTableOption([
   {
     column: 'id',
   },
@@ -16,15 +8,31 @@ const option2 = defineTableOption([
     label: '用户名',
   },
   {
+    column: 'sex',
+    label: '性别',
+  },
+  {
+    column: 'age',
+    label: '年龄',
+  },
+  {
     column: 'address',
     label: '家庭住址',
   },
   {
-    column: 'date',
+    column: 'telephone',
+    label: '电话',
+  },
+  {
+    column: 'birthday',
     formatter: (value) => {
       return new Date(value).toLocaleDateString()
     },
     label: '日期',
+  },
+  {
+    column: 'email',
+    label: 'Email',
   },
   {
     column: 'option',
@@ -43,8 +51,7 @@ async function fetchData(page = 1, pageSize = 10) {
 
 <template>
   <div class="card h-full w-full">
-    <!-- <CommonTable :data="d" :options="option2"> -->
-    <CommonTable :data="fetchData" :options="option2">
+    <CommonTable :data="fetchData" :options="option">
       <template #option>
         <el-button type="success">
           确认
