@@ -1,3 +1,7 @@
+import { student } from '~/server/db'
+
 export default defineEventHandler(async () => {
-  return await paginate('test')
+  return await withPagination(student, {
+    where: true,
+  })
 })

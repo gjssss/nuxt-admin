@@ -27,7 +27,7 @@
 * 在`server/db`中添加模型，新建文件如`test.ts`，添加Drizzle ORM表模型
   ```ts
   import { date, mysqlTable, serial, varchar } from 'drizzle-orm/mysql-core'
-
+  
   export const test = mysqlTable('test', {
     id: serial('id').primaryKey(),
     date: date('date'),
@@ -62,3 +62,55 @@
 后端：使用`jwt`库和环境变量`NUXT_SECRET`生成Token，在login.post接口中setCookie添加到Cookie中。添加Middleware `1.auth.ts` 验证Token并且将信息附加到`event.context.info`中。
 
 前端：在服务端渲染时，首先会重定向到登录页面判断登录状态，在登录页面通过请求`whoami`接口来验证是否是有效Token。
+
+## API
+
+### Server
+
+#### withPagination
+
+函数签名
+
+```ts
+function withPagination<T extends MySqlTable<TableConfig>>(table: T, option?: {
+    select?: SelectedFields;
+    where?: SQL | boolean | string[];
+}): Promise<{
+    data result[],
+    totalCount: number,
+    page: number,
+    pageSize: number,
+  }>
+```
+
+相关Drizzle ORM链接
+
+- [select]([Drizzle ORM - Select](https://orm.drizzle.team/docs/select))
+
+- [where]([Drizzle ORM - Select](https://orm.drizzle.team/docs/select#filtering))
+
+当where为**SQL**类型可按照文档中过滤，如获取学生年龄等于18岁的记录。
+
+```ts
+await withPagination(student,{
+  where: eq(student.age, 18)
+})
+```
+
+当where为**string[]**时将自动获取URL query来过滤对应列，如访问`/info?page=1&pageSize=10&age=20&sex=男`时，会自动获取年龄为20岁男性的学生记录。
+
+```ts
+await withPagination(student, {
+  where: ['age', 'sex'],
+})
+```
+
+当where为**true**时将自动根据URL query来查询所有匹配的列，如访问`/info?page=1&pageSize=10&age=20&foo=bar`时，将查询年龄为20岁的学生记录。
+
+```ts
+await withPagination(student, {
+  where: true,
+})
+```
+
+注意后面两个方式只能判断数值相等的情况，并且由于根据URL query来生成，具有一定的安全隐患，如发现问题请提交Issue。
