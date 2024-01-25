@@ -33,20 +33,18 @@ export function usePaginate<T>(source: sourceFunc<T> | Array<T>): resolvePage<T>
     }
   }
   else {
-    const _trigger = ref<boolean>(false)
-    const close = watchEffect(() => {
-      use(_trigger.value) // 手动触发effect
-      source(currentPage.value, pageSize.value).then(({ data: _d, totalCount }) => {
-        data.value = _d
-        pageCount.value = totalCount
-      })
+    const refresh = () => source(currentPage.value, pageSize.value).then(({ data: _d, totalCount }) => {
+      data.value = _d
+      pageCount.value = totalCount
     })
+
+    const close = watchEffect(refresh)
     return {
       data,
       currentPage,
       pageCount,
       pageSize,
-      refresh: () => { _trigger.value = !_trigger.value },
+      refresh,
       next,
       prev,
 
