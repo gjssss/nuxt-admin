@@ -1,4 +1,5 @@
 import { isArray } from 'lodash-es'
+import type { WatchStopHandle } from 'vue'
 
 export function usePaginate<T>(source: sourceFunc<T> | Array<T>): resolvePage<T> {
   const data = ref<Array<T>>() as globalThis.Ref<T[]>
@@ -6,11 +7,11 @@ export function usePaginate<T>(source: sourceFunc<T> | Array<T>): resolvePage<T>
   const pageCount = ref<number>(1)
   const pageSize = ref<number>(10)
 
-  function next() {
+  async function next() {
     if (currentPage.value < pageCount.value)
       currentPage.value++
   }
-  function prev() {
+  async function prev() {
     if (currentPage.value > 1)
       currentPage.value--
   }
@@ -25,7 +26,7 @@ export function usePaginate<T>(source: sourceFunc<T> | Array<T>): resolvePage<T>
       currentPage,
       pageCount,
       pageSize,
-      refresh: () => {},
+      refresh: async () => {},
       next,
       prev,
 
@@ -66,9 +67,9 @@ interface resolvePage<T> {
   pageCount: Ref<number>
   pageSize: Ref<number>
 
-  refresh: Function
-  next: Function
-  prev: Function
+  refresh: () => Promise<void>
+  next: () => Promise<void>
+  prev: () => Promise<void>
 
-  close: Function
+  close: WatchStopHandle
 }
