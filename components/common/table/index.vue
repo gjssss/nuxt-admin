@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isString } from 'lodash-es'
+import { cloneDeep, isString } from 'lodash-es'
 import type { optionsObj, tableProps } from './interface'
 
 const props = withDefaults(defineProps<tableProps>(), {
@@ -12,6 +12,21 @@ defineSlots<{
 
 const controlPanel = ref<string>('')
 
+const searchColumn = computed<Required<optionsObj>[]>(() => {
+  if (typeof props.options[0] === 'string')
+    return []
+  else
+    return props.options.filter(item => item.search) as Required<optionsObj>[] ?? []
+})
+
+const searchForm = ref<Record<string, string>>({})
+const _searchForm = ref<Record<string, string>>({})
+
+searchColumn.value.forEach((item) => {
+  _searchForm.value[item.column] = String(item.search.default ?? '')
+  searchForm.value[item.column] = String(item.search.default ?? '')
+})
+
 const {
   data,
   currentPage,
@@ -19,7 +34,7 @@ const {
   pageSize,
   refresh,
   close,
-} = usePaginate(props.data)
+} = usePaginate(props.data, searchForm)
 
 /**
  * 正确的获取和转化不同的formatter为element plus所需类型
@@ -39,6 +54,11 @@ function formatter(f: optionsObj['formatter']) {
 function toggleSearch() {
   controlPanel.value = controlPanel.value ? '' : 'control'
 }
+
+function comfirmSearch() {
+  searchForm.value = cloneDeep(_searchForm.value)
+}
+
 onUnmounted(() => {
   close()
 })
@@ -46,7 +66,6 @@ onUnmounted(() => {
 
 <template>
   <div>
-    <!-- TODO: 按钮多种样式的颜色修改 -->
     <div class="flex justify-end">
       <el-button-group>
         <el-button @click="refresh()">
@@ -61,9 +80,16 @@ onUnmounted(() => {
     <el-collapse v-model="controlPanel" accordion class="search-collapse">
       <el-collapse-item name="control">
         <template #default>
-          <div>
-            Search Buidling 🚧
+          <div class="grid grid-cols-6 mt2">
+            <common-table-search-item
+              v-for="item, index in searchColumn"
+              :key="index"
+              v-model="_searchForm[item.column]" :params="item.search"
+            />
           </div>
+          <el-button class="mt2" @click="comfirmSearch()">
+            确认
+          </el-button>
         </template>
       </el-collapse-item>
     </el-collapse>

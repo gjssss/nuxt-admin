@@ -10,6 +10,24 @@ const option = defineTableOption([
   {
     column: 'sex',
     label: '性别',
+    search: {
+      type: 'select',
+      options: [
+        {
+          value: '',
+          label: '全部',
+        },
+        {
+          value: '男',
+          label: '男',
+        },
+        {
+          value: '女',
+          label: '女',
+        },
+      ],
+      default: ' ',
+    },
   },
   {
     column: 'age',
@@ -39,11 +57,12 @@ const option = defineTableOption([
     label: '操作',
   },
 ])
-async function fetchData(page = 1, pageSize = 10) {
+async function fetchData(page = 1, pageSize = 10, searchParams: any) {
   return await $request('/api/user/info', {
     params: {
       page,
       pageSize,
+      sex: searchParams.sex,
     },
   })
 }

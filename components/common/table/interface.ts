@@ -1,7 +1,7 @@
-type DataReqType = (page?: number, pageSize?: number) => Promise<any>
+import type { sourceFunc } from '~/composables/usePaginate'
 
 export interface tableProps {
-  data: DataReqType | any[]
+  data: sourceFunc<any> | any[]
   options: tableOption | string[]
   /**
    * 是否启用分页
@@ -34,4 +34,25 @@ export interface optionsObj {
    * 表栏的标签，显示在表头
    */
   label?: string
+  /**
+   * 用于添加搜索表单
+   */
+  search?: searchOption
+}
+
+export type searchOption = selectSearchOption | inputSearchOption
+
+interface selectSearchOption {
+  type: 'select'
+  options: Array<{
+    value: string | number | boolean
+    label: string | number
+    disabled?: boolean
+  }>
+  default?: string | number | boolean
+}
+
+interface inputSearchOption {
+  type: 'input'
+  default?: string | number | boolean
 }
