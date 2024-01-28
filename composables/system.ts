@@ -36,23 +36,6 @@ export const useSystemStore = defineStore('system', () => {
       key: 'table-test',
       icon: 'i-carbon-table-split',
     },
-    {
-      title: '用户',
-      key: 'user',
-      icon: 'i-carbon-home',
-    },
-    {
-      title: '测试1',
-      key: 'other',
-      icon: 'i-carbon-home',
-      children: [
-        {
-          title: '测试2',
-          key: 'other',
-          icon: 'i-carbon-home',
-        },
-      ],
-    },
   ])
 
   /**
