@@ -26,7 +26,7 @@ const option = defineTableOption([
           label: '女',
         },
       ],
-      default: ' ',
+      default: '',
     },
   },
   {
@@ -58,12 +58,15 @@ const option = defineTableOption([
   },
 ])
 async function fetchData(page = 1, pageSize = 10, searchParams: any) {
+  const params: Record<string, any> = {
+    page,
+    pageSize,
+  }
+  if (searchParams.sex)
+    params.sex = searchParams.sex
+
   return await $request('/api/user/info', {
-    params: {
-      page,
-      pageSize,
-      sex: searchParams.sex,
-    },
+    params,
   })
 }
 </script>
@@ -81,6 +84,4 @@ async function fetchData(page = 1, pageSize = 10, searchParams: any) {
   </div>
 </template>
 
-<style>
-
-</style>
+<style></style>
