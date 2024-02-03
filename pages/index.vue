@@ -151,7 +151,7 @@ function CollapseHandle(value?: boolean) {
         </div>
       </div>
       <main v-loading="systemStore.isLoading" class="box-border flex-1 bg-$el-bg-color-page p-10px">
-        <NuxtPage :keepalive="{ exclude: ['user'] }" />
+        <NuxtPage />
       </main>
       <footer class="h-30px bg-$el-bg-color-page text-center">
         <ElLink :underline="false" type="info">
