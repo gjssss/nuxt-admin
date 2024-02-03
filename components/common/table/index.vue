@@ -85,6 +85,7 @@ onUnmounted(() => {
               v-for="item, index in searchColumn"
               :key="index"
               v-model="_searchForm[item.column]" :params="item.search"
+              :label="item.label"
             />
           </div>
           <el-button class="mt2" @click="comfirmSearch()">
