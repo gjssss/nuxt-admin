@@ -1,5 +1,8 @@
 import { defu } from 'defu'
 import Cookies from 'js-cookie'
+import { autoRoute } from '../utils/route'
+import { useSystemStore } from './system'
+import { useFetch, useRoute } from '#app'
 
 // 在这里控制请求默认配置
 function defaultOpt<T>(): T {
@@ -36,9 +39,11 @@ function _request(...args: Parameters<typeof $fetch>) {
 /**
  * 构造option，提供编辑器智能提示
  */
-function buildOpt(opt: Parameters<typeof $fetch>[1]) {
+function buildOpt(opt: requestOption) {
   return opt
 }
+
+export type requestOption = Parameters<typeof $fetch>[1]
 
 export const useRequest = _useRequest as typeof useFetch
 export const $request = _request as typeof $fetch
