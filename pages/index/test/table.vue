@@ -69,7 +69,6 @@ async function fetchData(page = 1, pageSize = 10, searchParams: any) {
     params,
   })
 }
-const dialogVisible = ref(false)
 </script>
 
 <template>
@@ -85,7 +84,6 @@ const dialogVisible = ref(false)
       </template>
     </CommonTable>
   </div>
-  <CommonTableDialog v-model="dialogVisible" data="123" title="123" />
 </template>
 
 <style></style>

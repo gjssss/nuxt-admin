@@ -1,0 +1,59 @@
+{
+  "name": "@nuxt-admin/module",
+  "type": "module",
+  "version": "0.0.1",
+  "packageManager": "pnpm@8.15.1",
+  "description": "description placeholder",
+  "author": "your-name <account@mail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/your-repo#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-repo.git"
+  },
+  "bugs": "https://github.com/your-repo/issues",
+  "keywords": [],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/types.d.ts",
+      "import": "./dist/module.mjs",
+      "require": "./dist/module.cjs"
+    }
+  },
+  "main": "./dist/module.mjs",
+  "module": "./dist/module.mjs",
+  "types": "./dist/types.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./dist/types.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "nuxt-module-build build",
+    "build:stub": "nuxt-module-build build --stub",
+    "dev:prepare": "nuxt-module-build prepare",
+    "prepare": "pnpm dev:prepare && pnpm build:stub",
+    "test": "vitest run",
+    "test:watch": "vitest watch"
+  },
+  "dependencies": {
+    "@nuxt/kit": "^3.10.1"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "latest",
+    "@nuxt/module-builder": "^0.5.5",
+    "@nuxt/schema": "^3.10.1",
+    "@nuxt/test-utils": "^3.11.0",
+    "@types/node": "^20.11.16",
+    "nuxt": "^3.10.1",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.2"
+  }
+}

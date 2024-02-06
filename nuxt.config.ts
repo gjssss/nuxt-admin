@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@element-plus/nuxt',
     'nuxt-icon',
+    '@nuxt-admin/module',
   ],
 
   experimental: {

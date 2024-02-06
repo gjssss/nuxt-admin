@@ -15,6 +15,7 @@
     "start:generate": "npx serve .output/public"
   },
   "dependencies": {
+    "@nuxt-admin/module": "workspace:*",
     "drizzle-orm": "^0.29.3",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
@@ -24,7 +25,7 @@
     "sass": "^1.70.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.6.3",
+    "@antfu/eslint-config": "^2.6.4",
     "@element-plus/nuxt": "^1.0.7",
     "@iconify-json/carbon": "^1.1.28",
     "@iconify-json/twemoji": "^1.1.15",
@@ -36,14 +37,14 @@
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.11.16",
     "@types/nprogress": "^0.2.3",
-    "@unocss/eslint-config": "^0.58.4",
-    "@unocss/nuxt": "^0.58.4",
+    "@unocss/eslint-config": "^0.58.5",
+    "@unocss/nuxt": "^0.58.5",
     "@vueuse/nuxt": "^10.7.2",
     "consola": "^3.2.3",
     "drizzle-kit": "^0.20.14",
     "eslint": "^8.56.0",
     "mysql2": "^3.9.1",
-    "nuxt": "^3.10.0",
+    "nuxt": "^3.10.1",
     "nuxt-icon": "^0.6.8",
     "pinia": "^2.1.7",
     "typescript": "^5.3.3",
