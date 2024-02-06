@@ -62,6 +62,10 @@ function comfirmSearch() {
 onUnmounted(() => {
   close()
 })
+
+defineExpose({
+  refresh,
+})
 </script>
 
 <template>
@@ -71,8 +75,7 @@ onUnmounted(() => {
         <el-button @click="refresh()">
           刷新
         </el-button>
-        <!-- TODO: 表搜索模块 -->
-        <el-button @click="toggleSearch()">
+        <el-button :type="controlPanel ? 'primary' : 'default'" @click="toggleSearch()">
           搜索
         </el-button>
       </el-button-group>
@@ -84,7 +87,8 @@ onUnmounted(() => {
             <common-table-search-item
               v-for="item, index in searchColumn"
               :key="index"
-              v-model="_searchForm[item.column]" :params="item.search"
+              v-model="_searchForm[item.column]"
+              :params="item.search"
               :label="item.label"
             />
           </div>
@@ -99,7 +103,8 @@ onUnmounted(() => {
         <el-table-column
           :prop="isString(item) ? item : item.column"
           :label="isString(item) ? item : item.label ?? item.column"
-          :formatter="isString(item) ? undefined : formatter(item.formatter)" align="center"
+          :formatter="isString(item) ? undefined : formatter(item.formatter)"
+          align="center"
         >
           <template v-if="$slots[isString(item) ? item : item.column]" #default="scope">
             <slot :name="isString(item) ? item : item.column" v-bind="scope" />
@@ -112,8 +117,13 @@ onUnmounted(() => {
     </el-table>
     <div v-if="pagination" class="flex-center mt-20px">
       <el-pagination
-        v-model:current-page="currentPage" v-model:page-size="pageSize" background hide-on-single-page
-        layout="sizes, prev, pager, next,jumper, ->, total" :total="pageCount" :page-sizes="[10, 20, 30, 40, 50, 100]"
+        v-model:current-page="currentPage"
+        v-model:page-size="pageSize"
+        background
+        hide-on-single-page
+        layout="sizes, prev, pager, next,jumper, ->, total"
+        :total="pageCount"
+        :page-sizes="[10, 20, 30, 40, 50, 100]"
       />
     </div>
   </div>

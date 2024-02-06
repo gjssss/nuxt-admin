@@ -69,19 +69,23 @@ async function fetchData(page = 1, pageSize = 10, searchParams: any) {
     params,
   })
 }
+const dialogVisible = ref(false)
 </script>
 
 <template>
   <div class="card h-full w-full">
     <CommonTable :data="fetchData" :options="option">
       <template #option>
-        <el-button type="success">
-          确认
+        <el-button type="info">
+          详情
         </el-button>
-        <el-button>取消</el-button>
+        <el-button type="danger">
+          拒绝
+        </el-button>
       </template>
     </CommonTable>
   </div>
+  <CommonTableDialog v-model="dialogVisible" data="123" title="123" />
 </template>
 
 <style></style>
