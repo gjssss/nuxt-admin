@@ -1,8 +1,9 @@
 import { isArray } from 'lodash-es'
-import type { WatchStopHandle } from 'vue'
+import type { Ref, WatchStopHandle } from 'vue'
+import { ref, toValue, watchEffect } from 'vue'
 
 export function usePaginate<T>(source: sourceFunc<T> | Array<T>, params?: Ref<any> | any): resolvePage<T> {
-  const data = ref<Array<T>>() as globalThis.Ref<T[]>
+  const data = ref<Array<T>>() as Ref<T[]>
   const currentPage = ref<number>(1)
   const pageCount = ref<number>(1)
   const pageSize = ref<number>(10)
@@ -26,7 +27,7 @@ export function usePaginate<T>(source: sourceFunc<T> | Array<T>, params?: Ref<an
       currentPage,
       pageCount,
       pageSize,
-      refresh: async () => {},
+      refresh: async () => { },
       next,
       prev,
 

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { cloneDeep, isString } from 'lodash-es'
+import { computed, onUnmounted, ref } from 'vue'
+import { usePaginate } from '../../../composables/usePaginate'
 import type { optionsObj, tableProps } from './interface'
 
 const props = withDefaults(defineProps<tableProps>(), {
