@@ -1,5 +1,17 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import type { menuOptionItem, pathInfoItem } from '~/types'
+import { computed, mergePath, ref, useDark, useRoute, useToggle } from '#imports'
+
+export interface menuOptionItem {
+  title: string
+  key: string | number
+  icon?: string
+  children?: menuOptionItem[]
+}
+
+export interface pathInfoItem extends menuOptionItem {
+  path: string
+  children?: pathInfoItem[]
+}
 
 export const useSystemStore = defineStore('system', () => {
   // Element Plus 配置
