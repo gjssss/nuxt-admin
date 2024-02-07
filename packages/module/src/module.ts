@@ -37,7 +37,11 @@ export default defineNuxtModule<ModuleOptions>({
     addImportsDir(rPath('./composables'))
     addImportsDir(rPath('./utils'))
 
-    await installModule(await resolver.resolvePath('@element-plus/nuxt'))
+    await installModule(await resolver.resolvePath('@vueuse/nuxt'))
+    await installModule(await resolver.resolvePath('@unocss/nuxt'))
     await installModule(await resolver.resolvePath('@pinia/nuxt'))
+    await installModule(await resolver.resolvePath('@nuxtjs/color-mode'))
+    await installModule(await resolver.resolvePath('@element-plus/nuxt'))
+    await installModule(await resolver.resolvePath('nuxt-icon'))
   },
 })

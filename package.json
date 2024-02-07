@@ -10,7 +10,6 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prepare": "nuxi prepare",
-    "postinstall": "nuxi prepare",
     "generate": "nuxi generate",
     "start:generate": "npx serve .output/public"
   },
