@@ -1,7 +1,6 @@
 import { defu } from 'defu'
 import Cookies from 'js-cookie'
-import { autoRoute } from '../utils/route'
-import { useSystemStore } from './system'
+import { autoRoute, useSystemStore } from '#imports'
 import { useFetch, useRoute } from '#app'
 
 // 在这里控制请求默认配置

@@ -1,9 +1,6 @@
 <script setup lang="tsx">
-import { storeToRefs } from 'pinia'
 import { ElIcon, ElMenuItem, ElSubMenu } from 'element-plus'
-import { nextTick, ref } from 'vue'
-import { useSystemStore } from '../../../composables/system'
-import { useTabsStore } from '../../../composables/tabs'
+import { nextTick, ref, storeToRefs, useSystemStore, useTabsStore } from '#imports'
 import { Icon } from '#components'
 
 export interface menuOptionItem {

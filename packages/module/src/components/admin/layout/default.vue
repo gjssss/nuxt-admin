@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import en from 'element-plus/es/locale/lang/en'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
-import { computed, onMounted } from 'vue'
-import { useSystemStore } from '../../../composables/system'
+import { computed, onMounted, useSystemStore } from '#imports'
 
 const systemStore = useSystemStore()
 const locale = computed(() => {
