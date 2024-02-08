@@ -1,5 +1,5 @@
 import type { VNode } from 'vue'
-import type { sourceFunc } from '../../../composables/usePaginate'
+import type { sourceFunc } from '../../../runtime/client/composables/usePaginate'
 
 export interface tableProps {
   data: sourceFunc<any> | any[]

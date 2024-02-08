@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@nuxt-admin/module':
-        specifier: workspace:*
-        version: link:packages/module
       drizzle-orm:
         specifier: ^0.29.3
         version: 0.29.3(mysql2@3.9.1)
@@ -23,6 +20,9 @@ importers:
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
+      nuxt-admin:
+        specifier: workspace:*
+        version: link:packages/module
       ohash:
         specifier: ^1.1.3
         version: 1.1.3
