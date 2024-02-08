@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useSystemStore } from '../../composables/system'
+import { useSystemStore } from '#imports'
 
 defineProps<{
   size: string

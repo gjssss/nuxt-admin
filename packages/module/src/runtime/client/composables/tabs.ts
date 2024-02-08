@@ -1,5 +1,6 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import type { TabsPaneContext } from 'element-plus'
+import { useRoute, useRouter, useSystemStore } from '#imports'
 
 export interface TabsItem {
   name: string

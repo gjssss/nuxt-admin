@@ -1,4 +1,4 @@
-import { student } from '~/server/db'
+import { student } from '../../db/student'
 
 export default defineEventHandler(async () => {
   return await withPagination(student, {

@@ -1,5 +1,5 @@
 import { fileURLToPath } from 'node:url'
-import { addComponentsDir, addImportsDir, addPlugin, createResolver, defineNuxtModule, installModule, useNuxt } from '@nuxt/kit'
+import { addComponentsDir, addImportsDir, addPlugin, addServerScanDir, createResolver, defineNuxtModule, installModule } from '@nuxt/kit'
 
 export interface ModuleOptions {
 }
@@ -31,12 +31,14 @@ export default defineNuxtModule<ModuleOptions>({
     // Do not add the extension since the `.ts` will be transpiled to `.mjs` after `npm run prepack`
 
     addPlugin(resolver.resolve('./runtime/client/plugins/nprogress'))
-    addPlugin(resolver.resolve('./runtime/client/pluginsmiddleware'))
+    addPlugin(resolver.resolve('./runtime/client/plugins/middleware'))
     addComponentsDir({
       path: rPath('./components'),
     })
     addImportsDir(rPath('./runtime/client/utils'))
     addImportsDir(rPath('./runtime/client/composables'))
+
+    addServerScanDir(rPath('./runtime/server'))
 
     await installModule(await resolver.resolvePath('@vueuse/nuxt'))
     await installModule(await resolver.resolvePath('@unocss/nuxt'))

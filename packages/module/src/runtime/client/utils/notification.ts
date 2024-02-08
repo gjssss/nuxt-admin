@@ -1,4 +1,5 @@
 import type { NotificationHandle } from 'element-plus'
+import { ElNotification } from 'element-plus'
 
 const _notification: any = (message: string, title?: string) => {
   return ElNotification({

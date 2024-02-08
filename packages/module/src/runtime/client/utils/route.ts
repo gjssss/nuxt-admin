@@ -1,3 +1,5 @@
+import { navigateTo, useRoute } from '#imports'
+
 /**
  * 用于控制正确的跳转
  * @param flag 是否通过鉴权
