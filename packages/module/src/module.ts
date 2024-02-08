@@ -13,10 +13,6 @@ export interface ModuleRuntimeHooks {
 export interface ModulePublicRuntimeConfig {
 }
 
-function rPath(p: string) {
-  return fileURLToPath(new URL(p, import.meta.url).toString())
-}
-
 export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: 'nuxt-admin',
@@ -25,7 +21,7 @@ export default defineNuxtModule<ModuleOptions>({
   // Default configuration options of the Nuxt module
   defaults: {
   },
-  // eslint-disable-next-line unused-imports/no-unused-vars
+
   async setup(options, nuxt) {
     const resolver = createResolver(import.meta.url)
     // Do not add the extension since the `.ts` will be transpiled to `.mjs` after `npm run prepack`
@@ -33,12 +29,14 @@ export default defineNuxtModule<ModuleOptions>({
     addPlugin(resolver.resolve('./runtime/client/plugins/nprogress'))
     addPlugin(resolver.resolve('./runtime/client/plugins/middleware'))
     addComponentsDir({
-      path: rPath('./components'),
+      path: resolver.resolve('./components'),
     })
-    addImportsDir(rPath('./runtime/client/utils'))
-    addImportsDir(rPath('./runtime/client/composables'))
+    addImportsDir(resolver.resolve('./runtime/client/utils'))
+    addImportsDir(resolver.resolve('./runtime/client/composables'))
 
-    addServerScanDir(rPath('./runtime/server'))
+    addServerScanDir(resolver.resolve('./runtime/server'))
+
+    nuxt.options.css.push(resolver.resolve('./styles/index.css'))
 
     await installModule(await resolver.resolvePath('@vueuse/nuxt'))
     await installModule(await resolver.resolvePath('@unocss/nuxt'))
