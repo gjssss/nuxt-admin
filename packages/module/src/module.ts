@@ -1,7 +1,11 @@
-import { fileURLToPath } from 'node:url'
 import { addComponentsDir, addImportsDir, addPlugin, addServerScanDir, createResolver, defineNuxtModule, installModule } from '@nuxt/kit'
+import type { requestOption } from './runtime/client/composables/useRequest'
 
 export interface ModuleOptions {
+  server?: boolean
+  client?: {
+    request?: requestOption
+  }
 }
 
 export interface ModuleHooks {
@@ -20,6 +24,7 @@ export default defineNuxtModule<ModuleOptions>({
   },
   // Default configuration options of the Nuxt module
   defaults: {
+    server: true,
   },
 
   async setup(options, nuxt) {
@@ -34,7 +39,8 @@ export default defineNuxtModule<ModuleOptions>({
     addImportsDir(resolver.resolve('./runtime/client/utils'))
     addImportsDir(resolver.resolve('./runtime/client/composables'))
 
-    addServerScanDir(resolver.resolve('./runtime/server'))
+    if (options.server)
+      addServerScanDir(resolver.resolve('./runtime/server'))
 
     nuxt.options.css.push(resolver.resolve('./styles/index.css'))
 

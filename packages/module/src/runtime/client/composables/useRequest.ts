@@ -1,24 +1,39 @@
 import { defu } from 'defu'
 import Cookies from 'js-cookie'
+import { useNuxt } from '@nuxt/kit'
 import { autoRoute, useSystemStore } from '#imports'
 import { useFetch, useRoute } from '#app'
 
 // 在这里控制请求默认配置
 function defaultOpt<T>(): T {
+  const { options } = useNuxt()
   return buildOpt({
     onRequest() {
       useSystemStore().isLoading = true
     },
-    onResponse({ response }) {
+    onResponse(arg) {
       useSystemStore().isLoading = false
-      // transform data structer
-      response._data = response._data.data
+
+      if (options.nuxtAdmin?.client?.request?.onResponse) {
+        options.nuxtAdmin?.client?.request?.onResponse(arg)
+      }
+      else {
+      // default
+        // transform data structer
+        arg.response._data = arg.response._data.data
+      }
     },
-    onResponseError({ response }) {
-      // 处理登录后的鉴权失败的响应
-      if (import.meta.client && response.status === 401 && useRoute().path !== '/login') {
-        Cookies.remove('Authorization')
-        autoRoute()
+    onResponseError(arg) {
+      if (options.nuxtAdmin?.client?.request?.onResponseError) {
+        options.nuxtAdmin?.client?.request?.onResponseError(arg)
+      }
+      else {
+        // default
+        // 处理登录后的鉴权失败的响应
+        if (import.meta.client && arg.response.status === 401 && useRoute().path !== '/login') {
+          Cookies.remove('Authorization')
+          autoRoute()
+        }
       }
     },
   }) as T
