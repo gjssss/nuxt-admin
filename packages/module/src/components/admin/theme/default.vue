@@ -97,7 +97,7 @@ function CollapseHandle(value?: boolean) {
     <div class="border-style h-full flex-shrink-0">
       <el-menu router :collapse="collapse" :default-active="$route.path" class="page-menu h-full w-210px flex flex-col">
         <div class="flex-center h-55px flex-shrink-0" :class="_collapse ? 'w-63px' : 'w-full'">
-          <img class="h-30px" src="/nuxt.svg" alt="Nuxt Logo" :class="_collapse ? '' : 'mr-10px'">
+          <img class="h-30px" src="/logo.svg" alt="Nuxt Logo" :class="_collapse ? '' : 'mr-10px'">
           <div v-show="!_collapse" class="text-22px font-bold">
             {{ systemStore.webTitle }}
           </div>

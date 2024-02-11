@@ -1,40 +1,20 @@
 import { defu } from 'defu'
-import Cookies from 'js-cookie'
-import { useNuxt } from '@nuxt/kit'
-import { autoRoute, useSystemStore } from '#imports'
-import { useFetch, useRoute } from '#app'
+import { useSystemStore } from '#imports'
+import { useFetch, useNuxtApp } from '#app'
 
 // 在这里控制请求默认配置
 function defaultOpt<T>(): T {
-  const { options } = useNuxt()
+  const app = useNuxtApp()
   return buildOpt({
     onRequest() {
       useSystemStore().isLoading = true
     },
-    onResponse(arg) {
+    async onResponse(arg) {
+      await app.callHook('onResponse', arg)
       useSystemStore().isLoading = false
-
-      if (options.nuxtAdmin?.client?.request?.onResponse) {
-        options.nuxtAdmin?.client?.request?.onResponse(arg)
-      }
-      else {
-      // default
-        // transform data structer
-        arg.response._data = arg.response._data.data
-      }
     },
-    onResponseError(arg) {
-      if (options.nuxtAdmin?.client?.request?.onResponseError) {
-        options.nuxtAdmin?.client?.request?.onResponseError(arg)
-      }
-      else {
-        // default
-        // 处理登录后的鉴权失败的响应
-        if (import.meta.client && arg.response.status === 401 && useRoute().path !== '/login') {
-          Cookies.remove('Authorization')
-          autoRoute()
-        }
-      }
+    async onResponseError(arg) {
+      await app.callHook('onResponseError', arg)
     },
   }) as T
 }
@@ -59,5 +39,5 @@ function buildOpt(opt: requestOption) {
 
 export type requestOption = Parameters<typeof $fetch>[1]
 
-export const useRequest = _useRequest as typeof useFetch
-export const $request = _request as typeof $fetch
+export const useRequest: typeof useFetch = _useRequest as typeof useFetch
+export const $request: typeof $fetch = _request as typeof $fetch

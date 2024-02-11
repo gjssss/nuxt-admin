@@ -1,20 +1,28 @@
 import { addComponentsDir, addImportsDir, addPlugin, addServerScanDir, createResolver, defineNuxtModule, installModule } from '@nuxt/kit'
+import type { FetchContext, FetchResponse } from 'ofetch'
 import type { requestOption } from './runtime/client/composables/useRequest'
 
 export interface ModuleOptions {
   server?: boolean
-  client?: {
-    request?: requestOption
-  }
+
 }
 
 export interface ModuleHooks {
 }
 
 export interface ModuleRuntimeHooks {
+  'onResponse': (context: FetchContext & {
+    response: FetchResponse<ResponseType>
+  }) => Promise<void> | void
+  'onResponseError': (context: FetchContext & {
+    response: FetchResponse<ResponseType>
+  }) => Promise<void> | void
 }
 
 export interface ModulePublicRuntimeConfig {
+  client?: {
+    request?: requestOption
+  }
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -39,8 +47,10 @@ export default defineNuxtModule<ModuleOptions>({
     addImportsDir(resolver.resolve('./runtime/client/utils'))
     addImportsDir(resolver.resolve('./runtime/client/composables'))
 
-    if (options.server)
+    if (options.server) {
       addServerScanDir(resolver.resolve('./runtime/server'))
+      addPlugin(resolver.resolve('./runtime/client/plugins/request'))
+    }
 
     nuxt.options.css.push(resolver.resolve('./styles/index.css'))
 
