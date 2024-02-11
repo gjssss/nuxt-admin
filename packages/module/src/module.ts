@@ -10,11 +10,11 @@ export interface ModuleOptions {
 export interface ModuleHooks {
 }
 
-export interface ModuleRuntimeHooks {
-  'onResponse': (context: FetchContext & {
+export interface RuntimeModuleHooks {
+  'admin:onResponse': (context: FetchContext & {
     response: FetchResponse<ResponseType>
   }) => Promise<void> | void
-  'onResponseError': (context: FetchContext & {
+  'admin:onResponseError': (context: FetchContext & {
     response: FetchResponse<ResponseType>
   }) => Promise<void> | void
 }
@@ -62,3 +62,7 @@ export default defineNuxtModule<ModuleOptions>({
     await installModule(await resolver.resolvePath('nuxt-icon'))
   },
 })
+
+declare module '#app' {
+  interface RuntimeNuxtHooks extends RuntimeModuleHooks {}
+}

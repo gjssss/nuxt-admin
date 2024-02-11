@@ -1,6 +1,5 @@
 import { defu } from 'defu'
-import { useSystemStore } from '#imports'
-import { useFetch, useNuxtApp } from '#app'
+import { useFetch, useNuxtApp, useSystemStore } from '#imports'
 
 // 在这里控制请求默认配置
 function defaultOpt<T>(): T {
@@ -10,11 +9,11 @@ function defaultOpt<T>(): T {
       useSystemStore().isLoading = true
     },
     async onResponse(arg) {
-      await app.callHook('onResponse', arg)
+      await app.callHook('admin:onResponse', arg)
       useSystemStore().isLoading = false
     },
     async onResponseError(arg) {
-      await app.callHook('onResponseError', arg)
+      await app.callHook('admin:onResponseError', arg)
     },
   }) as T
 }
