@@ -4,6 +4,7 @@
   "packageManager": "pnpm@8.15.1",
   "scripts": {
     "build": "nuxi build --dotenv .env.local",
+    "build:module": "pnpm --filter nuxt-admin build",
     "dev": "nuxi dev --dotenv .env.local",
     "start": "node .output/server/index.mjs",
     "typecheck": "vue-tsc --noEmit",

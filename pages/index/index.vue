@@ -12,7 +12,7 @@
 
 <style lang="scss">
 .logo {
-  background-image: url(/nuxt.svg);
+  background-image: url(/icon.svg);
   background-size: 200px;
   width: 200px;
   height: 200px;
@@ -20,7 +20,7 @@
 
   &::before {
     content: '';
-    background-image: url(/nuxt.svg);
+    background-image: url(/icon.svg);
     background-size: 300px;
     width: 300px;
     height: 300px;
